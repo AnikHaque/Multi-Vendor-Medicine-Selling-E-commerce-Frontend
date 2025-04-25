@@ -9,6 +9,7 @@ import HealthcareProducts from "../components/Products/Products";
 import TodayHotDeals from "../components/HotDeal/HotDeal";
 import PromoSection from "../components/PromoSection/PromoSection";
 import DigitalMachine from "../components/DigitalMachine/DigitalMachine";
+import Describe from "../components/Describe/Describe";
 
 
 const Home = () => {
@@ -25,6 +26,7 @@ const Home = () => {
       <TodayHotDeals></TodayHotDeals>
                   <PromoSection></PromoSection>
       <WhyChooseUs></WhyChooseUs>
+      <Describe></Describe>
       <AppPromo />
       <HomeBlog></HomeBlog>
     </div>
