@@ -7,6 +7,7 @@ import Shop from "../components/Shop/Shop";
 import CategoryCardSection from "../components/Categories/Categories";
 import HealthcareProducts from "../components/Products/Products";
 import TodayHotDeals from "../components/HotDeal/HotDeal";
+import PromoSection from "../components/PromoSection/PromoSection";
 
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
 <CategoryCardSection></CategoryCardSection>
 <Shop></Shop>
       <ServiceCards />
+            <PromoSection></PromoSection>
       <HealthcareProducts></HealthcareProducts>
       <TodayHotDeals></TodayHotDeals>
       <WhyChooseUs></WhyChooseUs>

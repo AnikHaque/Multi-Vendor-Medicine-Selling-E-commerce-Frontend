@@ -1,20 +1,17 @@
-
+import React from 'react';
 
 const promotions = [
   {
-    title: "Personal Care Suppliments", 
-    image: "/images/personal-care.png", 
-    alt: "Personal Care Supplements",
+    title: "Personal Care  Suppliments",
+    image: "https://wordpressthemes.live/WCG10/WCM230_healthmart/medicine02/wp-content/uploads/2025/02/CMS-banner-03.jpg",
   },
   {
     title: "Boost Your Immune System",
-    image: "/images/immune-boost.png",
-    alt: "Boost Immune System",
+    image: "https://wordpressthemes.live/WCG10/WCM230_healthmart/medicine02/wp-content/uploads/2025/02/CMS-banner-04.jpg",
   },
   {
     title: "25% OFF On Select Health Products",
-    image: "/images/health-products.png",
-    alt: "Health Products",
+    image: "https://wordpressthemes.live/WCG10/WCM230_healthmart/medicine02/wp-content/uploads/2025/02/CMS-banner-05.jpg",
   },
 ];
 
@@ -25,20 +22,26 @@ const PromoSection = () => {
         {promotions.map((promo, index) => (
           <div
             key={index}
-            className="bg-white rounded-lg shadow-md p-5 flex flex-col items-start justify-between"
+            className="relative rounded-lg h-64 overflow-hidden text-white shadow-lg flex flex-col justify-between p-5"
+            style={{
+              backgroundImage: `url(${promo.image})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
           >
-            <span className="text-xs bg-green-600 text-white px-2 py-1 rounded-full mb-3">
-              NEW
-            </span>
-            <h2 className="text-lg font-semibold text-blue-900 mb-4">{promo.title}</h2>
-            <button className="mt-auto bg-blue-900 text-white px-4 py-2 rounded-full hover:bg-blue-800">
+            {/* Optional Overlay */}
+            <div className="absolute inset-0 bg-black/40 z-0"></div>
+
+            <div className="relative z-10">
+              <span className="text-xs bg-green-600 text-white px-2 py-1 rounded-full inline-block mb-3">
+                NEW
+              </span>
+              <h2 className="text-xl font-semibold ">{promo.title}</h2>
+            </div>
+
+            <button className="relative z-10 bg-white text-blue-900 font-semibold px-4 py-2 rounded-full hover:bg-gray-100 w-fit">
               Shop Now
             </button>
-            <img
-              src={promo.image}
-              alt={promo.alt}
-              className="mt-5 w-full h-40 object-contain"
-            />
           </div>
         ))}
       </div>
