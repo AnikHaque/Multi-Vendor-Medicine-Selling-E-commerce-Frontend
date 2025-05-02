@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom"; // ✅ Import Link
+import Loader from "../Shared/Loader";
 
 export default function CategoryCardSection() {
   const [categories, setCategories] = useState([]);
@@ -23,7 +24,7 @@ export default function CategoryCardSection() {
   }, []);
 
   if (loading) {
-    return <p className="text-center mt-10">Loading categories...</p>;
+    return <Loader size="lg" color="blue" />;
   }
 
   return (
