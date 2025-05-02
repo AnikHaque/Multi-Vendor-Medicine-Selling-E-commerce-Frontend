@@ -8,6 +8,7 @@ import CategoryCardSection from "../components/Categories/Categories";
 import HealthcareProducts from "../components/Products/Products";
 import TodayHotDeals from "../components/HotDeal/HotDeal";
 import PromoSection from "../components/PromoSection/PromoSection";
+import DigitalMachine from "../components/DigitalMachine/DigitalMachine";
 
 
 const Home = () => {
@@ -18,10 +19,11 @@ const Home = () => {
       <Hero></Hero>
 <CategoryCardSection></CategoryCardSection>
 <Shop></Shop>
+<DigitalMachine></DigitalMachine>
       <ServiceCards />
-            <PromoSection></PromoSection>
       <HealthcareProducts></HealthcareProducts>
       <TodayHotDeals></TodayHotDeals>
+                  <PromoSection></PromoSection>
       <WhyChooseUs></WhyChooseUs>
       <AppPromo />
       <HomeBlog></HomeBlog>
