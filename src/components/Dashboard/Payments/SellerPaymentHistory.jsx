@@ -15,7 +15,7 @@ const SellerPaymentHistory = () => {
     }
 
     axios
-      .get("http://localhost:8800/api/payment-history", {
+      .get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/payment-history", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

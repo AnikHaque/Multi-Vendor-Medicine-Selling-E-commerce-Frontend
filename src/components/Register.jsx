@@ -24,7 +24,7 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8800/api/register",
+        "https://multi-vendor-medicine-selling-e-com.vercel.app/api/register",
         {
           name,
           email,
@@ -51,7 +51,7 @@ const Register = () => {
       const result = await signInWithPopup(auth, provider);
       const { email, displayName, photoURL } = result.user;
       const res = await axios.post(
-        "http://localhost:8800/api/save-user",
+        "https://multi-vendor-medicine-selling-e-com.vercel.app/api/save-user",
         {
           email,
           name: displayName,

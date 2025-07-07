@@ -9,7 +9,7 @@ export default function ManageUsers() {
 
   const fetchUsers = async (page = 1) => {
     try {
-      const res = await axios.get(`http://localhost:8800/api/users?page=${page}&limit=10`, {
+      const res = await axios.get(`https://multi-vendor-medicine-selling-e-com.vercel.app/api/users?page=${page}&limit=10`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(res.data.users);
@@ -23,7 +23,7 @@ export default function ManageUsers() {
   const updateRole = async (id, newRole) => {
     try {
       await axios.patch(
-        `http://localhost:8800/api/users/${id}/role`,
+        `https://multi-vendor-medicine-selling-e-com.vercel.app/api/users/${id}/role`,
         { role: newRole },
         {
           headers: { Authorization: `Bearer ${token}` },

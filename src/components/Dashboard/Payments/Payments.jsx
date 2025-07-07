@@ -8,7 +8,7 @@ const AdminPayments = () => {
   const fetchPayments = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:8800/api/payments", {
+      const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/payments", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPayments(res.data);
@@ -27,7 +27,7 @@ const AdminPayments = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:8800/api/payments/${id}/approve`,
+        `https://multi-vendor-medicine-selling-e-com.vercel.app/api/payments/${id}/approve`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

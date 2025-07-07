@@ -11,7 +11,7 @@ const ServiceCards = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const res = await axios.get("http://localhost:8800/api/medicines");
+      const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/medicines");
       const all = res.data;
 
       const filtered = all
@@ -35,7 +35,7 @@ const ServiceCards = () => {
 
     try {
       await axios.post(
-        "http://localhost:8800/api/cart",
+        "https://multi-vendor-medicine-selling-e-com.vercel.app/api/cart",
         { medicineId },
         {
           headers: { Authorization: `Bearer ${token}` },

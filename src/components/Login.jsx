@@ -11,7 +11,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post("http://localhost:8800/api/login", {
+      const res = await axios.post("https://multi-vendor-medicine-selling-e-com.vercel.app/api/login", {
         email,
         password,
       });
@@ -30,7 +30,7 @@ const Login = () => {
       const result = await signInWithPopup(auth, provider);
       const { email, displayName, photoURL } = result.user;
 
-      const res = await axios.post("http://localhost:8800/api/save-user", {
+      const res = await axios.post("https://multi-vendor-medicine-selling-e-com.vercel.app/api/save-user", {
         email,
         name: displayName,
         photoURL,

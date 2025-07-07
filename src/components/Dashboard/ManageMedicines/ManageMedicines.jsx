@@ -25,7 +25,7 @@ export default function ManageMedicines() {
 
   const fetchMedicines = async () => {
     try {
-      const res = await axios.get("http://localhost:8800/api/my-medicines", {
+      const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/my-medicines", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMedicines(res.data);
@@ -36,7 +36,7 @@ export default function ManageMedicines() {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get("http://localhost:8800/api/categories");
+      const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/categories");
       setCategories(res.data);
     } catch (err) {
       console.error("Failed to fetch categories", err);
@@ -54,7 +54,7 @@ export default function ManageMedicines() {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:8800/api/medicines", form, {
+      await axios.post("https://multi-vendor-medicine-selling-e-com.vercel.app/api/medicines", form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       Swal.fire("Success", "Medicine added", "success");

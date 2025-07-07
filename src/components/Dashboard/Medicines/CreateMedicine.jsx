@@ -17,7 +17,7 @@ export default function CreateMedicinePage() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    axios.get("http://localhost:8800/api/categories").then((res) => {
+    axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/categories").then((res) => {
       setCategories(res.data);
     });
   }, []);
@@ -30,7 +30,7 @@ export default function CreateMedicinePage() {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:8800/api/medicines",
+        "https://multi-vendor-medicine-selling-e-com.vercel.app/api/medicines",
         { 
           name: form.name,
           category: form.category,

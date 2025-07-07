@@ -11,7 +11,7 @@ export default function Checkout() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8800/api/create-checkout-session",
+        "https://multi-vendor-medicine-selling-e-com.vercel.app/api/create-checkout-session",
         {},
         {
           headers: { Authorization: `Bearer ${token}` },

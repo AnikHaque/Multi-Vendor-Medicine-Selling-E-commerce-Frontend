@@ -15,7 +15,7 @@ const AddBlog = ({ user, token }) => {
 
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post("http://localhost:8800/api/add-blog", data, {
+      const res = await axios.post("https://multi-vendor-medicine-selling-e-com.vercel.app/api/add-blog", data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

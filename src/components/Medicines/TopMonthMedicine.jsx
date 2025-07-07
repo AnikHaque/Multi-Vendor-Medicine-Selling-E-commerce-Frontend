@@ -7,7 +7,7 @@ const TopMonthlyMedicines = () => {
   useEffect(() => {
     const fetchTopMeds = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/api/medicines/top-monthly");
+        const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/medicines/top-monthly");
         setTopMeds(res.data);
       } catch (err) {
         console.error("Error fetching top medicines:", err);

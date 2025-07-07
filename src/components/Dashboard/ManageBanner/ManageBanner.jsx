@@ -8,7 +8,7 @@ export default function ManageBannerAdvertise() {
 
   const fetchMedicines = async () => {
     try {
-      const res = await axios.get("http://localhost:8800/api/medicines", {
+      const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/medicines", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMedicines(res.data);
@@ -19,7 +19,7 @@ export default function ManageBannerAdvertise() {
 
   const toggleBanner = async (id) => {
     try {
-      await axios.put(`http://localhost:8800/api/medicines/${id}/toggle-banner`, {}, {
+      await axios.put(`https://multi-vendor-medicine-selling-e-com.vercel.app/api/medicines/${id}/toggle-banner`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchMedicines();

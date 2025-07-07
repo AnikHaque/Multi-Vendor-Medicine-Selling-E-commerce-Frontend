@@ -9,7 +9,7 @@ export default function CategoryCardSection() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const res = await axios.get("http://localhost:8800/api/categories");
+        const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/categories");
         setCategories(Array.isArray(res.data) ? res.data : []);
       } catch (error) {
         console.error("Error fetching categories:", error);

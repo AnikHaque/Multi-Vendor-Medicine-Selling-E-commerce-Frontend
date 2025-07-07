@@ -8,7 +8,7 @@ export default function UserPaymentHistory() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8800/api/orders/user-history", {
+      .get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/orders/user-history", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setHistory(res.data))

@@ -13,7 +13,7 @@ export default function ManageCategories() {
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:8800/api/categories", {
+      const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/categories", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -45,7 +45,7 @@ export default function ManageCategories() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure to delete this category?")) return;
     try {
-      await axios.delete(`http://localhost:8800/api/categories/${id}`, {
+      await axios.delete(`https://multi-vendor-medicine-selling-e-com.vercel.app/api/categories/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Category deleted");
@@ -65,13 +65,13 @@ export default function ManageCategories() {
     try {
       if (editId) {
         await axios.put(
-          `http://localhost:8800/api/categories/${editId}`,
+          `https://multi-vendor-medicine-selling-e-com.vercel.app/api/categories/${editId}`,
           form,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         alert("Category updated");
       } else {
-        await axios.post("http://localhost:8800/api/categories", form, {
+        await axios.post("https://multi-vendor-medicine-selling-e-com.vercel.app/api/categories", form, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert("Category added");

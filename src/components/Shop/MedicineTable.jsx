@@ -68,7 +68,7 @@ export default function MedicinesTable() {
   useEffect(() => {
     async function fetchMedicines() {
       try {
-        const res = await axios.get("http://localhost:8800/api/medicines");
+        const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/medicines");
         setMedicines(res.data);
       } catch (error) {
         console.error("Error fetching medicines:", error);
@@ -88,7 +88,7 @@ export default function MedicinesTable() {
     }
     try {
       await axios.post(
-        "http://localhost:8800/api/cart",
+        "https://multi-vendor-medicine-selling-e-com.vercel.app/api/cart",
         { medicineId },
         { headers: { Authorization: `Bearer ${token}` } }
       );

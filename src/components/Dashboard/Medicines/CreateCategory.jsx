@@ -15,7 +15,7 @@ export default function CreateCategory() {
 
     try {
       await axios.post(
-        "http://localhost:8800/api/categories",
+        "https://multi-vendor-medicine-selling-e-com.vercel.app/api/categories",
         { category, image },
         {
           headers: { Authorization: `Bearer ${token}` },

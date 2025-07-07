@@ -19,14 +19,14 @@ export default function SellerAdvertisementSection() {
   }, []);
 
   const fetchAds = async () => {
-    const res = await axios.get("http://localhost:8800/api/advertise/mine", {
+    const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/advertise/mine", {
       headers: { Authorization: `Bearer ${token}` },
     });
     setAds(res.data);
   };
 
   const fetchMyMedicines = async () => {
-    const res = await axios.get("http://localhost:8800/api/my-medicines", {
+    const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/my-medicines", {
       headers: { Authorization: `Bearer ${token}` },
     });
     setMyMedicines(res.data);
@@ -35,7 +35,7 @@ export default function SellerAdvertisementSection() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8800/api/advertise", form, {
+      await axios.post("https://multi-vendor-medicine-selling-e-com.vercel.app/api/advertise", form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       Swal.fire("Submitted", "Advertisement request sent", "success");

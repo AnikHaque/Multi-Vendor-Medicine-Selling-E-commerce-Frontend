@@ -21,7 +21,7 @@ export default function SalesReport() {
         params.endDate = end;
       }
 
-      const res = await axios.get("http://localhost:8800/api/sales", {
+      const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/sales", {
         headers: { Authorization: `Bearer ${token}` },
         params,
       });

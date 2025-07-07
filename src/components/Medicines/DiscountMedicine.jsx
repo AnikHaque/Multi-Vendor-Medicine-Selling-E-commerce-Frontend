@@ -10,7 +10,7 @@ const DiscountSlider = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const res = await axios.get("http://localhost:8800/api/medicines");
+      const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/medicines");
       const all = res.data;
 
       // Filter only products with discount > 0 and valid price

@@ -9,7 +9,7 @@ export default function CategoryDetails() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch(`http://localhost:8800/api/medicines/category/${category}`)
+    fetch(`https://multi-vendor-medicine-selling-e-com.vercel.app/api/medicines/category/${category}`)
       .then((res) => res.json())
       .then(setMedicines)
       .catch(console.error);
@@ -23,7 +23,7 @@ export default function CategoryDetails() {
 
     try {
       await axios.post(
-        "http://localhost:8800/api/cart",
+        "https://multi-vendor-medicine-selling-e-com.vercel.app/api/cart",
         { medicineId: medicine._id },
         {
           headers: { Authorization: `Bearer ${token}` },

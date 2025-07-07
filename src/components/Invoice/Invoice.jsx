@@ -16,7 +16,7 @@ export default function Invoice() {
       if (!token || !sessionId) return;
 
       try {
-        const res = await axios.get(`http://localhost:8800/api/order/${sessionId}`, {
+        const res = await axios.get(`https://multi-vendor-medicine-selling-e-com.vercel.app/api/order/${sessionId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setOrder(res.data);

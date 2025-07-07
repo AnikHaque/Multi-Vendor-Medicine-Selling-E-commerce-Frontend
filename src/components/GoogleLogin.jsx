@@ -14,7 +14,7 @@ export default function GoogleLogin() {
 
       // Send the Google user info to your backend and get the JWT token
       const res = await axios.post(
-        "http://localhost:8800/api/save-user",
+        "https://multi-vendor-medicine-selling-e-com.vercel.app/api/save-user",
         {
           email,
           name: displayName,

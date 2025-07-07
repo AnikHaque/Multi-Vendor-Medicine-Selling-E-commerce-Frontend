@@ -10,7 +10,7 @@ export default function Cart() {
   const fetchCart = async () => {
     if (!token) return;
     try {
-      const res = await axios.get("http://localhost:8800/api/cart", {
+      const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/cart", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCartItems(res.data);
@@ -28,7 +28,7 @@ export default function Cart() {
     if (quantity < 1) return;
     try {
       await axios.put(
-        `http://localhost:8800/api/cart/${id}`,
+        `https://multi-vendor-medicine-selling-e-com.vercel.app/api/cart/${id}`,
         { quantity },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -45,7 +45,7 @@ export default function Cart() {
 
   const removeItem = async (id) => {
     try {
-      await axios.delete(`http://localhost:8800/api/cart/${id}`, {
+      await axios.delete(`https://multi-vendor-medicine-selling-e-com.vercel.app/api/cart/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCartItems((prev) => prev.filter((item) => item._id !== id));
@@ -58,7 +58,7 @@ export default function Cart() {
   const clearCart = async () => {
     if (!window.confirm("Are you sure you want to clear the cart?")) return;
     try {
-      await axios.delete("http://localhost:8800/api/cart", {
+      await axios.delete("https://multi-vendor-medicine-selling-e-com.vercel.app/api/cart", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCartItems([]);

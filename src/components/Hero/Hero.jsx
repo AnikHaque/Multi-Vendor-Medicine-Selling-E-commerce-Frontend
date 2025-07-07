@@ -10,7 +10,7 @@ const Hero = () => {
   useEffect(() => {
     const fetchSlides = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/api/medicines/banner");
+        const res = await axios.get("https://multi-vendor-medicine-selling-e-com.vercel.app/api/medicines/banner");
         setSlides(res.data);
       } catch (err) {
         console.error("Failed to load banner medicines", err);
