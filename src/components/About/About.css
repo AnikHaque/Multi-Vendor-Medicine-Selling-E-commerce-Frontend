@@ -1,0 +1,8 @@
+.about-banner {
+  background-image: url("https://img.freepik.com/premium-vector/freelance-business-concept-flat-design-woman-freelancer-working-laptop-while-lying-couch-online-work-remote-employment-vector-illustration-with-isolated-people-scene-web-banner_198565-1703.jpg");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: cover;
+  width: 100%;
+  height: 30vh;
+}
