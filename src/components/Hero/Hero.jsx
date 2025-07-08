@@ -12,22 +12,23 @@ const slides = [
     btn1: "Subscribe Now",
     btn2: "Learn More",
   },
-  {
+   {
     id: 2,
-    image: "https://png.pngtree.com/thumb_back/fh260/background/20220427/pngtree-home-office-banner-freelance-work-image_1091574.jpg",
-    title: "The Easiest Way to Get Your New Job",
-    desc: "Work with talented people at the most affordable price to get the most out of your time and cost",
-    btn1: "Explore",
-    btn2: "Subscribe",
+    image: "https://res.cloudinary.com/comparis-cms/image/upload/c_fill,g_center,f_auto,q_auto,w_2052,h_1100/v1639132429/health_insurance/overviewpages/leistungen/medikamente-ausland-bestellen_iStock-1135935476_ycdcoc.jpg",
+    title: "Combo Covid-19 Prevention & Control",
+    desc: "Work with talented people at the most affordable price to get the most out of your time and cost.Work with talented people at the most affordable price to get the most out of your time and cost",
+    btn1: "Subscribe Now",
+    btn2: "Learn More",
   },
-  {
+   {
     id: 3,
-    image: "https://cdn.vectorstock.com/i/1000v/40/06/futuristic-devops-process-banner-vector-41714006.jpg",
-    title: "Essential Security Kits",
-    desc: "Gear up for your next outdoor devops in style.",
-    btn1: "Get Subscription",
-    btn2: "See Tips",
-  },
+    image: "https://static.vecteezy.com/system/resources/thumbnails/056/363/611/small_2x/collection-of-medical-supplies-on-a-clean-countertop-featuring-bottles-towels-and-tools-photo.jpg",
+    title: "Combo Covid-19 Prevention & Control",
+    desc: "Work with talented people at the most affordable price to get the most out of your time and cost.Work with talented people at the most affordable price to get the most out of your time and cost",
+    btn1: "Subscribe Now",
+    btn2: "Learn More",
+  }
+ 
 ];
 
 const Hero = () => {
@@ -38,7 +39,7 @@ const Hero = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
-    // autoplay: true,
+    autoplay: true,
     autoplaySpeed: 2000,
     cssEase: "linear",
   };
@@ -68,7 +69,7 @@ const Hero = () => {
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className="h-64 md:h-[500px] w-full object-cover rounded"
+                  className="h-64 md:h-[500px] w-full md:ml-20 object-cover rounded"
                 />
               </div>
             </div>
