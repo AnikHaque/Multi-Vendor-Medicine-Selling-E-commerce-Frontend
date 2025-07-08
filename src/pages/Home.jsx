@@ -12,12 +12,13 @@ const Home = () => {
     <div
       style={{ backgroundColor: "var(--bg-color)", color: "var(--text-color)" }}
     >
-      <Hero />
+      <Hero></Hero>
       <PopularCategories />
 
       <ServiceCards />
       <Stat></Stat>
       <PopularSellers />
+    
       <PopularTasks></PopularTasks>
       <AppPromo />
       <HomeBlog></HomeBlog>

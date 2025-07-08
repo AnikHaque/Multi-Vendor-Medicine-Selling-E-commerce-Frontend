@@ -7,6 +7,7 @@ import AppRoutes from "./routes/AppRoutes";
 import Navbar from "./components/Shared/Navbar";
 import Footer from "./components/Shared/Footer";
 
+
 function App() {
   const [user, setUser] = useState(undefined);
   const location = useLocation();
