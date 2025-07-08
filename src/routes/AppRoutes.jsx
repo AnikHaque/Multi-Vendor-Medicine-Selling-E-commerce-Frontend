@@ -25,6 +25,7 @@ import DashPopularTasks from "../components/Dashboard/Tasks/DashPopularTasks";
 import ServiceCards from "../components/Tasks/FeaturedTasks";
 import ServiceCardDash from "../components/Dashboard/Tasks/DashFeaturedTasks";
 import AddBlog from "../components/Dashboard/Blogs/AddBlog";
+import ProductPage from "../components/Tasks/ProductDetails";
 
 export default function AppRoutes() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -38,6 +39,7 @@ export default function AppRoutes() {
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/success" element={<SuccessStories />} />
+      <Route path="/product-details" element={<ProductPage />} />
       <Route path="/browse-tasks" element={<BrowseTasks />} />
       <Route path="/bids/:taskId" element={<BidsPage />} />
       <Route path="/404" element={<NotFound />} />
