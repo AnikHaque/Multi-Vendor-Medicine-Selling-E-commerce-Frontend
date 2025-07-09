@@ -6,6 +6,7 @@ import AppPromo from "../components/AppPromo/AppPromo";
 import PopularTasks from "../components/Tasks/PopularTasks";
 import Stat from "../components/Stat/Stat";
 import HomeBlog from "../components/Blogs/HomeBlogs";
+import WhyChooseUs from "../components/Choose/Choose";
 
 const Home = () => {
   return (
@@ -20,6 +21,7 @@ const Home = () => {
       <PopularSellers />
     
       <PopularTasks></PopularTasks>
+      <WhyChooseUs></WhyChooseUs>
       <AppPromo />
       <HomeBlog></HomeBlog>
     </div>
