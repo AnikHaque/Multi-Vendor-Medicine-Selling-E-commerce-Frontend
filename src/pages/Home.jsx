@@ -7,6 +7,9 @@ import PopularTasks from "../components/Tasks/PopularTasks";
 import Stat from "../components/Stat/Stat";
 import HomeBlog from "../components/Blogs/HomeBlogs";
 import WhyChooseUs from "../components/Choose/Choose";
+import MedicineCategorySection from "../components/Categories/Categories";
+import Medicine from "../components/Medicines/Medicine";
+import Shop from "../components/Shop/Shop";
 
 const Home = () => {
   return (
@@ -14,12 +17,12 @@ const Home = () => {
       style={{ backgroundColor: "var(--bg-color)", color: "var(--text-color)" }}
     >
       <Hero></Hero>
-      <PopularCategories />
-
+<MedicineCategorySection></MedicineCategorySection>
+<Shop></Shop>
       <ServiceCards />
       <Stat></Stat>
       <PopularSellers />
-    
+    <Medicine></Medicine>
       <PopularTasks></PopularTasks>
       <WhyChooseUs></WhyChooseUs>
       <AppPromo />

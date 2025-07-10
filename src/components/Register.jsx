@@ -9,10 +9,10 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [photoURL, setPhotoURL] = useState("");
+  const [role, setRole] = useState("user"); // Added role selection
   const navigate = useNavigate();
 
   const handleRegister = async () => {
-    // Validate password strength
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     if (!passwordRegex.test(password)) {
       return Swal.fire(
@@ -24,17 +24,21 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        "https://freelancer-website-server.vercel.app/api/register",
+        "http://localhost:8800/api/register",
         {
           name,
           email,
           password,
           photoURL,
+          role, // Send role to backend
         }
       );
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify({ name, email, photoURL }));
-      Swal.fire("Success", "Registration successful", "success");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ name, email, photoURL, role })
+      );
+      Swal.fire("Success", `Registered successfully as ${role}`, "success");
       navigate("/");
     } catch (err) {
       Swal.fire(
@@ -50,17 +54,18 @@ const Register = () => {
       const result = await signInWithPopup(auth, provider);
       const { email, displayName, photoURL } = result.user;
       const res = await axios.post(
-        "https://freelancer-website-server.vercel.app/api/save-user",
+        "http://localhost:8800/api/save-user",
         {
           email,
           name: displayName,
           photoURL,
+          role: "user", // Default role for Google sign-in
         }
       );
       localStorage.setItem("token", res.data.token);
       localStorage.setItem(
         "user",
-        JSON.stringify({ name: displayName, email, photoURL })
+        JSON.stringify({ name: displayName, email, photoURL, role: "user" })
       );
       Swal.fire("Success", "Google Login successful", "success");
       navigate("/add-task");
@@ -104,6 +109,14 @@ const Register = () => {
             onChange={(e) => setPhotoURL(e.target.value)}
             className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            <option value="user">User</option>
+            <option value="seller">Seller</option>
+          </select>
         </div>
 
         <div className="mt-6 space-y-4">
