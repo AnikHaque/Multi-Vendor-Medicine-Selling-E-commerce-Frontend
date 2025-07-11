@@ -31,6 +31,8 @@ import CreateCategory from "../components/Dashboard/Medicines/CreateCategory";
 import CategoryDetails from "../components/Categories/CategoryDetails";
 
 import Cart from "../components/Cart/Cart";
+import Checkout from "../components/Checkout/Checkout";
+import Invoice from "../components/Invoice/Invoice";
 
 export default function AppRoutes() {
  let user = null;
@@ -56,6 +58,8 @@ const token = localStorage.getItem("token") || null;
       <Route path="/browse-tasks" element={<BrowseTasks />} />
       <Route path="/category/:category" element={<CategoryDetails />} />
       <Route path="/cart" element={<Cart user={user} token={token} />} />
+       <Route path="/checkout" element={<Checkout user={user} token={token} />} />
+       <Route path="/invoice" element={<Invoice  />} />
       <Route path="/bids/:taskId" element={<BidsPage />} />
       <Route path="/404" element={<NotFound />} />
       <Route path="*" element={<Navigate to="/404" />} />
