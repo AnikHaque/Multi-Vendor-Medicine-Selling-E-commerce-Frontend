@@ -11,6 +11,7 @@ import MedicineCategorySection from "../components/Categories/Categories";
 import Medicine from "../components/Medicines/Medicine";
 import Shop from "../components/Shop/Shop";
 import CategoryCardSection from "../components/Categories/Categories";
+import DiscountProductsSlider from "../components/Medicines/DiscountMedicine";
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
 <CategoryCardSection></CategoryCardSection>
 <Shop></Shop>
       <ServiceCards />
+      <DiscountProductsSlider></DiscountProductsSlider>
       <Stat></Stat>
       <PopularSellers />
     <Medicine></Medicine>

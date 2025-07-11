@@ -6,6 +6,9 @@ import { auth } from "./firebase";
 import AppRoutes from "./routes/AppRoutes";
 import Navbar from "./components/Shared/Navbar";
 import Footer from "./components/Shared/Footer";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 
 function App() {
