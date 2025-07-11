@@ -12,7 +12,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        "https://freelancer-website-server.vercel.app/api/login",
+        "http://localhost:8800/api/login",
         {
           email,
           password,
@@ -20,7 +20,7 @@ const Login = () => {
       );
       const { token, user } = res.data;
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
+     localStorage.setItem("user", JSON.stringify(res.data.user));
       Swal.fire("Success", "Login successful", "success");
       navigate("/");
     } catch (err) {
@@ -33,7 +33,7 @@ const Login = () => {
       const result = await signInWithPopup(auth, provider);
       const { email, displayName, photoURL } = result.user;
       const res = await axios.post(
-        "https://freelancer-website-server.vercel.app/api/save-user",
+        "http://localhost:8800/api/save-user",
         {
           email,
           name: displayName,

@@ -34,10 +34,7 @@ const Register = () => {
         }
       );
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ name, email, photoURL, role })
-      );
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       Swal.fire("Success", `Registered successfully as ${role}`, "success");
       navigate("/");
     } catch (err) {

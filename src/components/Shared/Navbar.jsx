@@ -11,22 +11,28 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const userData = localStorage.getItem("user");
+useEffect(() => {
+  let userData = null;
+  try {
+    userData = JSON.parse(localStorage.getItem("user"));
+  } catch (e) {
+    userData = null;
+  }
+  const token = localStorage.getItem("token") || null;
 
-    if (token && userData) {
-      setUser(JSON.parse(userData));
-      setIsLoggedIn(true);
-    } else {
-      setUser(null);
-      setIsLoggedIn(false);
-    }
+  if (token && userData) {
+    setUser(userData); // ✅ Already parsed
+    setIsLoggedIn(true);
+  } else {
+    setUser(null);
+    setIsLoggedIn(false);
+  }
 
-    const savedTheme = localStorage.getItem("theme") || "light";
-    setTheme(savedTheme);
-    document.documentElement.setAttribute("data-theme", savedTheme);
-  }, [location.pathname]);
+  const savedTheme = localStorage.getItem("theme") || "light";
+  setTheme(savedTheme);
+  document.documentElement.setAttribute("data-theme", savedTheme);
+}, [location.pathname]);
+
 
   useEffect(() => {
     const handleClickOutside = (e) => {

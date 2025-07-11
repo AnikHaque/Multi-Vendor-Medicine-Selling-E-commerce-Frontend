@@ -28,8 +28,16 @@ import AddBlog from "../components/Dashboard/Blogs/AddBlog";
 import ProductPage from "../components/Tasks/ProductDetails";
 
 export default function AppRoutes() {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const token = localStorage.getItem("token");
+ let user = null;
+try {
+  user = JSON.parse(localStorage.getItem("user"));
+} catch (e) {
+  user = null;
+}
+const token = localStorage.getItem("token") || null;
+
+
+  
 
   return (
     <Routes>
