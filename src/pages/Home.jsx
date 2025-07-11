@@ -10,6 +10,7 @@ import WhyChooseUs from "../components/Choose/Choose";
 import MedicineCategorySection from "../components/Categories/Categories";
 import Medicine from "../components/Medicines/Medicine";
 import Shop from "../components/Shop/Shop";
+import CategoryCardSection from "../components/Categories/Categories";
 
 const Home = () => {
   return (
@@ -17,7 +18,7 @@ const Home = () => {
       style={{ backgroundColor: "var(--bg-color)", color: "var(--text-color)" }}
     >
       <Hero></Hero>
-<MedicineCategorySection></MedicineCategorySection>
+<CategoryCardSection></CategoryCardSection>
 <Shop></Shop>
       <ServiceCards />
       <Stat></Stat>

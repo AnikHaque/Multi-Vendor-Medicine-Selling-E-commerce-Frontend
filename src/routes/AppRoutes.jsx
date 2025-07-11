@@ -26,6 +26,8 @@ import ServiceCards from "../components/Tasks/FeaturedTasks";
 import ServiceCardDash from "../components/Dashboard/Tasks/DashFeaturedTasks";
 import AddBlog from "../components/Dashboard/Blogs/AddBlog";
 import ProductPage from "../components/Tasks/ProductDetails";
+import CreateMedicinePage from "../components/Dashboard/Medicines/CreateMedicine";
+import CreateCategory from "../components/Dashboard/Medicines/CreateCategory";
 
 export default function AppRoutes() {
  let user = null;
@@ -59,6 +61,17 @@ const token = localStorage.getItem("token") || null;
           path="add-task"
           element={<AddTask user={user} token={token}></AddTask>}
         />
+
+         <Route
+          path="add-medicine"
+          element={<CreateMedicinePage user={user} token={token}></CreateMedicinePage>}
+        />
+
+        <Route
+          path="add-category"
+          element={<CreateCategory user={user} token={token}></CreateCategory>}
+        />
+
         <Route path="popular-tasks" element={<DashPopularTasks />} />
         <Route path="all-tasks" element={<BrowseTasks></BrowseTasks>} />
         <Route
