@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function CategoryDetails() {
   const { category } = useParams();
   const [medicines, setMedicines] = useState([]);
   const [modalMedicine, setModalMedicine] = useState(null);
-  const [cart, setCart] = useState(() => {
-    // Load cart from localStorage or start empty
-    const saved = localStorage.getItem("cart");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     fetch(`http://localhost:8800/api/medicines/category/${category}`)
@@ -18,29 +15,29 @@ export default function CategoryDetails() {
       .catch(console.error);
   }, [category]);
 
-  // Save cart to localStorage on changes
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+  const handleSelect = async (medicine) => {
+    if (!token) {
+      alert("You must be logged in to add items to cart.");
+      return;
+    }
 
-  // Add medicine to cart with quantity 1 or increment
-  const handleSelect = (medicine) => {
-    setCart((prevCart) => {
-      const exists = prevCart.find((m) => m._id === medicine._id);
-      if (exists) {
-        return prevCart.map((m) =>
-          m._id === medicine._id ? { ...m, quantity: m.quantity + 1 } : m
-        );
-      } else {
-        return [...prevCart, { ...medicine, quantity: 1 }];
-      }
-    });
+    try {
+      await axios.post(
+        "http://localhost:8800/api/cart",
+        { medicineId: medicine._id },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      alert("Added to cart!");
+    } catch (err) {
+      alert("Failed to add to cart");
+    }
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div style={{ padding: 20 }} className="mt-40">
       <h1>Category: {category}</h1>
-
       <table border="1" cellPadding="10" cellSpacing="0" style={{ width: "100%" }}>
         <thead>
           <tr>
@@ -60,21 +57,20 @@ export default function CategoryDetails() {
               <td>{med.discount}%</td>
               <td>
                 <button onClick={() => setModalMedicine(med)}>👁️ Eye</button>{" "}
-                <button onClick={() => handleSelect(med)}>Select</button>
+                <button onClick={() => handleSelect(med)}>🛒 Select</button>
               </td>
             </tr>
           ))}
           {medicines.length === 0 && (
             <tr>
               <td colSpan="5" style={{ textAlign: "center" }}>
-                No medicines found in this category.
+                No medicines found.
               </td>
             </tr>
           )}
         </tbody>
       </table>
 
-      {/* Modal */}
       {modalMedicine && (
         <div
           onClick={() => setModalMedicine(null)}
@@ -92,13 +88,7 @@ export default function CategoryDetails() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            style={{
-              backgroundColor: "#fff",
-              padding: 20,
-              borderRadius: 8,
-              maxWidth: 500,
-              width: "90%",
-            }}
+            style={{ backgroundColor: "#fff", padding: 20, borderRadius: 8, maxWidth: 500, width: "90%" }}
           >
             <h2>{modalMedicine.name}</h2>
             <img
