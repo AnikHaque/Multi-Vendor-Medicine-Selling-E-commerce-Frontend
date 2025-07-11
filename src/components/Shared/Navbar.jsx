@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,32 +8,32 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [theme, setTheme] = useState("light");
   const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [language, setLanguage] = useState("EN");
 
   const navigate = useNavigate();
   const location = useLocation();
 
-useEffect(() => {
-  let userData = null;
-  try {
-    userData = JSON.parse(localStorage.getItem("user"));
-  } catch (e) {
-    userData = null;
-  }
-  const token = localStorage.getItem("token") || null;
+  useEffect(() => {
+    let userData = null;
+    try {
+      userData = JSON.parse(localStorage.getItem("user"));
+    } catch (e) {
+      userData = null;
+    }
+    const token = localStorage.getItem("token") || null;
 
-  if (token && userData) {
-    setUser(userData); // ✅ Already parsed
-    setIsLoggedIn(true);
-  } else {
-    setUser(null);
-    setIsLoggedIn(false);
-  }
+    if (token && userData) {
+      setUser(userData);
+      setIsLoggedIn(true);
+    } else {
+      setUser(null);
+      setIsLoggedIn(false);
+    }
 
-  const savedTheme = localStorage.getItem("theme") || "light";
-  setTheme(savedTheme);
-  document.documentElement.setAttribute("data-theme", savedTheme);
-}, [location.pathname]);
-
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -64,11 +65,13 @@ useEffect(() => {
   return (
     <div className="bg-black text-white px-4 py-6 shadow-md fixed top-0 w-full z-50">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
-        <Link to="/" className="text-xl font-bold">
+        <Link to="/" className="text-xl font-bold flex items-center gap-2">
           <img
             src="https://devtechgroup.com/wp-content/uploads/2021/06/2021-Devtech-logo-m.png"
-            className="w-20"
-          ></img>
+            alt="Logo"
+            className="w-10"
+          />
+          <span>FreelancerHub</span>
         </Link>
 
         <button
@@ -86,65 +89,30 @@ useEffect(() => {
           <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-6">
             <Link
               to="/"
-              className={`block py-1 ${
-                isActive("/") ? "font-semibold underline" : ""
-              }`}
+              className={`block py-1 ${isActive("/") ? "font-semibold underline" : ""}`}
             >
               Home
             </Link>
             <Link
-              to="/about"
-              className={`block py-1 ${
-                isActive("/about") ? "font-semibold underline" : ""
-              }`}
+              to="/products"
+              className={`block py-1 ${isActive("/products") ? "font-semibold underline" : ""}`}
             >
-              About
+              Shop
             </Link>
-            {isLoggedIn ? (
-              <Link
-                to="/add-task"
-                className={`block py-1 ${
-                  isActive("/add-task") ? "font-semibold underline" : ""
-                }`}
-              >
-                Add Task
-              </Link>
-            ) : (
-              ""
-            )}
-
-            <Link
-              to="/browse-tasks"
-              className={`block py-1 ${
-                isActive("/browse-tasks") ? "font-semibold underline" : ""
-              }`}
+            <Link to="/cart" className="flex items-center gap-1 py-1">
+              <FaShoppingCart className="text-lg" /> Cart
+            </Link>
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              className="bg-black text-white border px-2 py-1 rounded"
             >
-              Browse Tasks
-            </Link>
-            <Link
-              to="/contact"
-              className={`block py-1 ${
-                isActive("/browse-tasks") ? "font-semibold underline" : ""
-              }`}
-            >
-              Contact
-            </Link>
-            {isLoggedIn ? (
-              <Link
-                to="/dashboard"
-                className={`block py-1 ${
-                  isActive("/my-posted-tasks") ? "font-semibold underline" : ""
-                }`}
-              >
-                Dashboard
-              </Link>
-            ) : (
-              ""
-            )}
+              <option value="EN">EN</option>
+              <option value="BN">BN</option>
+            </select>
           </div>
 
           <div className="mt-4 md:mt-0 flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
-            {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
               className="border border-white px-3 py-1 rounded text-sm"
@@ -174,12 +142,12 @@ useEffect(() => {
 
                 {showUserDropdown && (
                   <div className="absolute right-0 mt-2 bg-black text-white rounded shadow-lg p-3 text-sm z-20 w-48">
-                    <div className="mb-2 font-medium">
-                      {user.name || "No Name"}
-                    </div>
-                    <div className="mb-3 text-gray-300">
-                      {user.email || "No email"}
-                    </div>
+                    <Link to="/profile" className="block mb-2 hover:underline">
+                      Update Profile
+                    </Link>
+                    <Link to="/dashboard" className="block mb-2 hover:underline">
+                      Dashboard
+                    </Link>
                     <button
                       onClick={logout}
                       className="w-full bg-red-500 hover:bg-red-600 px-3 py-1 rounded"
@@ -190,20 +158,12 @@ useEffect(() => {
                 )}
               </div>
             ) : (
-              <div className="flex items-center gap-2">
-                <Link
-                  to="/login"
-                  className="bg-green-500 px-3 py-1 rounded hover:bg-green-600 transition text-center"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register"
-                  className="bg-blue-500 px-3 py-1 rounded hover:bg-blue-600 transition text-center"
-                >
-                  Signup
-                </Link>
-              </div>
+              <Link
+                to="/register"
+                className="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600 transition"
+              >
+                Join Us
+              </Link>
             )}
           </div>
         </div>
