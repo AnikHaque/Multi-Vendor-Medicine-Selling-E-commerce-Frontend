@@ -36,6 +36,7 @@ import Invoice from "../components/Invoice/Invoice";
 import ManageUsers from "../components/Dashboard/ManageUsers/ManageUsers";
 import ManageCategory from "../components/Dashboard/ManageCategories/ManageCategory";
 import AdminPayments from "../components/Dashboard/Payments/Payments";
+import SalesReport from "../components/Dashboard/Report/SalesReport";
 
 export default function AppRoutes() {
  let user = null;
@@ -84,6 +85,11 @@ const token = localStorage.getItem("token") || null;
          <Route
           path="add-medicine"
           element={<CreateMedicinePage user={user} token={token}></CreateMedicinePage>}
+        />
+
+         <Route
+          path="sales"
+          element={<SalesReport user={user} token={token}></SalesReport>}
         />
 
         <Route

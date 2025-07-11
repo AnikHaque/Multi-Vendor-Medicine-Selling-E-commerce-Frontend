@@ -87,7 +87,7 @@ const DashboardLayout = () => {
               {navItem("/dashboard/manage-payment", <Flame className="w-5 h-5" />, "Manage Payment")}
               {navItem("/dashboard/add-category", <Flame className="w-5 h-5" />, "Add a Category")}
               {navItem("/dashboard/add-medicine", <Flame className="w-5 h-5" />, "Add a Medicine")}
-              {navItem("/dashboard/featured-tasks", <Flame className="w-5 h-5" />, "Featured Tasks")}
+              {navItem("/dashboard/sales", <Flame className="w-5 h-5" />, "Sales Reports")}
               {navItem("/dashboard/popular-tasks", <Flame className="w-5 h-5" />, "Popular Tasks")}
             </>
           )}
