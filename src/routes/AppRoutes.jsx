@@ -28,6 +28,7 @@ import AddBlog from "../components/Dashboard/Blogs/AddBlog";
 import ProductPage from "../components/Tasks/ProductDetails";
 import CreateMedicinePage from "../components/Dashboard/Medicines/CreateMedicine";
 import CreateCategory from "../components/Dashboard/Medicines/CreateCategory";
+import CategoryDetails from "../components/Categories/CategoryDetails";
 
 export default function AppRoutes() {
  let user = null;
@@ -51,6 +52,7 @@ const token = localStorage.getItem("token") || null;
       <Route path="/success" element={<SuccessStories />} />
       <Route path="/product-details" element={<ProductPage />} />
       <Route path="/browse-tasks" element={<BrowseTasks />} />
+      <Route path="/category/:category" element={<CategoryDetails />} />
       <Route path="/bids/:taskId" element={<BidsPage />} />
       <Route path="/404" element={<NotFound />} />
       <Route path="*" element={<Navigate to="/404" />} />
