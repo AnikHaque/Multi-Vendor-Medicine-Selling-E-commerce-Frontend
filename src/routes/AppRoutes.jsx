@@ -33,6 +33,8 @@ import CategoryDetails from "../components/Categories/CategoryDetails";
 import Cart from "../components/Cart/Cart";
 import Checkout from "../components/Checkout/Checkout";
 import Invoice from "../components/Invoice/Invoice";
+import ManageUsers from "../components/Dashboard/ManageUsers/ManageUsers";
+import ManageCategory from "../components/Dashboard/ManageCategories/ManageCategory";
 
 export default function AppRoutes() {
  let user = null;
@@ -67,10 +69,13 @@ const token = localStorage.getItem("token") || null;
         <Route path="overview" element={<Overview />} />
         <Route index element={<Overview />} />
         <Route
-          path="add-task"
-          element={<AddTask user={user} token={token}></AddTask>}
+          path="manage-users"
+          element={<ManageUsers user={user} token={token}></ManageUsers>}
         />
-
+<Route
+          path="manage-category"
+          element={<ManageCategory user={user} token={token}></ManageCategory>}
+        />
          <Route
           path="add-medicine"
           element={<CreateMedicinePage user={user} token={token}></CreateMedicinePage>}

@@ -1,8 +1,74 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import { LayoutDashboard, Flame, CheckCircle } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  LayoutDashboard,
+  Flame,
+  CheckCircle,
+} from "lucide-react";
 
 const DashboardLayout = () => {
+   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [theme, setTheme] = useState("light");
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [language, setLanguage] = useState("EN");
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token") || null;
+    const userStr = localStorage.getItem("user");
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+    document.documentElement.setAttribute("data-theme", savedTheme);
+
+    let parsedUser = null;
+    if (userStr && userStr !== "undefined") {
+      try {
+        parsedUser = JSON.parse(userStr);
+      } catch (err) {
+        console.error("Failed to parse user from localStorage", err);
+      }
+    }
+
+    if (token && parsedUser) {
+      setUser(parsedUser);
+      setIsLoggedIn(true);
+    } else {
+      setUser(null);
+      setIsLoggedIn(false);
+    }
+  }, [location.pathname]);
+
+  const role = user?.role ?? "No role found";
+  console.log("User role from localStorage:", role);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
+
+  const navItem = (to, icon, label) => (
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        `flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${
+          isActive
+            ? "bg-blue-100 text-blue-600"
+            : "text-gray-700 hover:bg-gray-100"
+        }`
+      }
+    >
+      {icon}
+      {label}
+    </NavLink>
+  );
+
   return (
     <div className="min-h-screen flex bg-gray-100 text-gray-800">
       {/* Sidebar */}
@@ -11,131 +77,34 @@ const DashboardLayout = () => {
           <h2 className="text-2xl font-bold text-gray-800">🧭 Dashboard</h2>
         </div>
         <nav className="p-4 space-y-2">
-          <NavLink
-            to="/dashboard/overview"
-            className={({ isActive }) =>
-              `flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${
-                isActive
-                  ? "bg-blue-100 text-blue-600"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`
-            }
-          >
-            <LayoutDashboard className="w-5 h-5" />
-            Overview
-          </NavLink>
+          {navItem("/dashboard/overview", <LayoutDashboard className="w-5 h-5" />, "Overview")}
 
-          <NavLink
-            to="/dashboard/add-task"
-            className={({ isActive }) =>
-              `flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${
-                isActive
-                  ? "bg-blue-100 text-blue-600"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`
-            }
-          >
-            <Flame className="w-5 h-5" />
-            Add a Task
-          </NavLink>
+          {/* ✅ ADMIN ONLY */}
+          {role === "admin" && (
+            <>
+              {navItem("/dashboard/manage-users", <Flame className="w-5 h-5" />, "Manage Users")}
+              {navItem("/dashboard/manage-category", <Flame className="w-5 h-5" />, "Manage Category")}
+              {navItem("/dashboard/add-category", <Flame className="w-5 h-5" />, "Add a Category")}
+              {navItem("/dashboard/add-medicine", <Flame className="w-5 h-5" />, "Add a Medicine")}
+              {navItem("/dashboard/featured-tasks", <Flame className="w-5 h-5" />, "Featured Tasks")}
+              {navItem("/dashboard/popular-tasks", <Flame className="w-5 h-5" />, "Popular Tasks")}
+            </>
+          )}
 
-           <NavLink
-            to="/dashboard/add-category"
-            className={({ isActive }) =>
-              `flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${
-                isActive
-                  ? "bg-blue-100 text-blue-600"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`
-            }
-          >
-            <Flame className="w-5 h-5" />
-            Add a Category
-          </NavLink>
+          {/* ✅ SELLER ONLY */}
+          {role === "seller" && (
+            <>
+              {navItem("/dashboard/add-blog", <Flame className="w-5 h-5" />, "Add a Blog")}
+              {navItem("/dashboard/my-tasks", <CheckCircle className="w-5 h-5" />, "My Tasks")}
+            </>
+          )}
 
-          <NavLink
-            to="/dashboard/add-medicine"
-            className={({ isActive }) =>
-              `flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${
-                isActive
-                  ? "bg-blue-100 text-blue-600"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`
-            }
-          >
-            <Flame className="w-5 h-5" />
-            Add a Medicine
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/all-tasks"
-            className={({ isActive }) =>
-              `flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${
-                isActive
-                  ? "bg-blue-100 text-blue-600"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`
-            }
-          >
-            <Flame className="w-5 h-5" />
-            All Tasks
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/featured-tasks"
-            className={({ isActive }) =>
-              `flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${
-                isActive
-                  ? "bg-blue-100 text-blue-600"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`
-            }
-          >
-            <Flame className="w-5 h-5" />
-            Featured Tasks
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/popular-tasks"
-            className={({ isActive }) =>
-              `flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${
-                isActive
-                  ? "bg-blue-100 text-blue-600"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`
-            }
-          >
-            <Flame className="w-5 h-5" />
-            Popular Tasks
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/my-tasks"
-            className={({ isActive }) =>
-              `flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${
-                isActive
-                  ? "bg-blue-100 text-blue-600"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`
-            }
-          >
-            <CheckCircle className="w-5 h-5" />
-            My Tasks
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/add-blog"
-            className={({ isActive }) =>
-              `flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${
-                isActive
-                  ? "bg-blue-100 text-blue-600"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`
-            }
-          >
-            <Flame className="w-5 h-5" />
-            Add a Blog
-          </NavLink>
+          {/* ✅ USER ONLY */}
+          {role === "user" && (
+            <>
+              {navItem("/dashboard/all-tasks", <Flame className="w-5 h-5" />, "All Tasks")}
+            </>
+          )}
         </nav>
       </aside>
 

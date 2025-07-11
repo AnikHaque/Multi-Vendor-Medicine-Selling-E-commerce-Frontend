@@ -11,16 +11,13 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:8800/api/login",
-        {
-          email,
-          password,
-        }
-      );
+      const res = await axios.post("http://localhost:8800/api/login", {
+        email,
+        password,
+      });
       const { token, user } = res.data;
       localStorage.setItem("token", token);
-     localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("user", JSON.stringify(user)); // store full user object including role
       Swal.fire("Success", "Login successful", "success");
       navigate("/");
     } catch (err) {
@@ -32,19 +29,17 @@ const Login = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const { email, displayName, photoURL } = result.user;
-      const res = await axios.post(
-        "http://localhost:8800/api/save-user",
-        {
-          email,
-          name: displayName,
-          photoURL,
-        }
-      );
+
+      const res = await axios.post("http://localhost:8800/api/save-user", {
+        email,
+        name: displayName,
+        photoURL,
+      });
+
+      // Store token and full user object from backend response (includes role)
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ name: displayName, email, photoURL })
-      );
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
       Swal.fire("Success", "Google Login successful", "success");
       navigate("/");
     } catch (err) {

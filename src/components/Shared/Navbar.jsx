@@ -14,43 +14,32 @@ export default function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    let userData = null;
-    try {
-      userData = JSON.parse(localStorage.getItem("user"));
-    } catch (e) {
-      userData = null;
-    }
     const token = localStorage.getItem("token") || null;
+    const userStr = localStorage.getItem("user");
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+    document.documentElement.setAttribute("data-theme", savedTheme);
 
-    if (token && userData) {
-      setUser(userData);
+    let parsedUser = null;
+    if (userStr && userStr !== "undefined") {
+      try {
+        parsedUser = JSON.parse(userStr);
+      } catch (err) {
+        console.error("Failed to parse user from localStorage", err);
+      }
+    }
+
+    if (token && parsedUser) {
+      setUser(parsedUser);
       setIsLoggedIn(true);
     } else {
       setUser(null);
       setIsLoggedIn(false);
     }
-
-    const savedTheme = localStorage.getItem("theme") || "light";
-    setTheme(savedTheme);
-    document.documentElement.setAttribute("data-theme", savedTheme);
   }, [location.pathname]);
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (!e.target.closest("#user-dropdown")) {
-        setShowUserDropdown(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-  };
+  const role = user?.role ?? "No role found";
+  console.log("User role from localStorage:", role);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -59,8 +48,6 @@ export default function Navbar() {
     setIsLoggedIn(false);
     navigate("/login");
   };
-
-  const isActive = (path) => location.pathname === path;
 
   return (
     <div className="bg-black text-white px-4 py-6 shadow-md fixed top-0 w-full z-50">
@@ -87,16 +74,10 @@ export default function Navbar() {
           } md:flex md:items-center md:space-x-6`}
         >
           <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-6">
-            <Link
-              to="/"
-              className={`block py-1 ${isActive("/") ? "font-semibold underline" : ""}`}
-            >
+            <Link to="/" className="block py-1">
               Home
             </Link>
-            <Link
-              to="/products"
-              className={`block py-1 ${isActive("/products") ? "font-semibold underline" : ""}`}
-            >
+            <Link to="/products" className="block py-1">
               Shop
             </Link>
             <Link to="/cart" className="flex items-center gap-1 py-1">
@@ -114,7 +95,12 @@ export default function Navbar() {
 
           <div className="mt-4 md:mt-0 flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
             <button
-              onClick={toggleTheme}
+              onClick={() => {
+                const newTheme = theme === "light" ? "dark" : "light";
+                setTheme(newTheme);
+                localStorage.setItem("theme", newTheme);
+                document.documentElement.setAttribute("data-theme", newTheme);
+              }}
               className="border border-white px-3 py-1 rounded text-sm"
               title="Toggle Theme"
             >
@@ -146,7 +132,7 @@ export default function Navbar() {
                       Update Profile
                     </Link>
                     <Link to="/dashboard" className="block mb-2 hover:underline">
-                      Dashboard
+                      {role}
                     </Link>
                     <button
                       onClick={logout}
