@@ -84,6 +84,7 @@ const DashboardLayout = () => {
             <>
               {navItem("/dashboard/manage-users", <Flame className="w-5 h-5" />, "Manage Users")}
               {navItem("/dashboard/manage-category", <Flame className="w-5 h-5" />, "Manage Category")}
+              {navItem("/dashboard/manage-payment", <Flame className="w-5 h-5" />, "Manage Payment")}
               {navItem("/dashboard/add-category", <Flame className="w-5 h-5" />, "Add a Category")}
               {navItem("/dashboard/add-medicine", <Flame className="w-5 h-5" />, "Add a Medicine")}
               {navItem("/dashboard/featured-tasks", <Flame className="w-5 h-5" />, "Featured Tasks")}
