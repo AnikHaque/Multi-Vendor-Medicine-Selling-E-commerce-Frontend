@@ -40,6 +40,7 @@ import SalesReport from "../components/Dashboard/Report/SalesReport";
 import ManageMedicines from "../components/Dashboard/ManageMedicines/ManageMedicines";
 import SellerPaymentHistory from "../components/Dashboard/Payments/SellerPaymentHistory";
 import UserPaymentHistory from "../components/Dashboard/Payments/UserPaymentHistory";
+import AllMedicines from "../components/Shop/Shop";
 
 export default function AppRoutes() {
  let user = null;
@@ -66,6 +67,7 @@ const token = localStorage.getItem("token") || null;
       <Route path="/category/:category" element={<CategoryDetails />} />
       <Route path="/cart" element={<Cart user={user} token={token} />} />
        <Route path="/checkout" element={<Checkout user={user} token={token} />} />
+        <Route path="/shop" element={<AllMedicines user={user} token={token} />} />
        <Route path="/invoice" element={<Invoice  />} />
       <Route path="/bids/:taskId" element={<BidsPage />} />
       <Route path="/404" element={<NotFound />} />

@@ -77,7 +77,7 @@ export default function Navbar() {
             <Link to="/" className="block py-1">
               Home
             </Link>
-            <Link to="/products" className="block py-1">
+            <Link to="/shop" className="block py-1">
               Shop
             </Link>
             <Link to="/cart" className="flex items-center gap-1 py-1">
