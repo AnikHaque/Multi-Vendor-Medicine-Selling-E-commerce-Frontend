@@ -48,7 +48,9 @@ export default function AllMedicines() {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center">All Medicines</h1>
+      <h1 className="text-3xl font-semibold text-center text-gray-800 mb-12">
+          All Medicines
+        </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {medicines.map((med) => (
           <div key={med._id} className="bg-white rounded-xl shadow-md p-4 flex flex-col">
@@ -63,7 +65,7 @@ export default function AllMedicines() {
             <button
               onClick={() => handleAddToCart(med._id)}
               disabled={addingToCartId === med._id}
-              className="mt-auto bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+              className="mt-auto bg-[#2b97a4] text-white py-2 rounded hover:bg-[#2b97a4] disabled:opacity-50"
             >
               {addingToCartId === med._id ? "Adding..." : "Add to Cart"}
             </button>

@@ -43,6 +43,7 @@ import UserPaymentHistory from "../components/Dashboard/Payments/UserPaymentHist
 import AllMedicines from "../components/Shop/Shop";
 import MedicinesTable from "../components/Shop/MedicineTable";
 import ManageBannerAdvertise from "../components/Dashboard/ManageBanner/ManageBanner";
+import SellerAdvertisementSection from "../components/Dashboard/Advertise/SellerAdvertise";
 
 export default function AppRoutes() {
  let user = null;
@@ -82,6 +83,10 @@ const token = localStorage.getItem("token") || null;
         <Route
           path="manage-users"
           element={<ManageUsers user={user} token={token}></ManageUsers>}
+        />
+        <Route
+          path="seller-advertise"
+          element={<SellerAdvertisementSection user={user} token={token}></SellerAdvertisementSection>}
         />
 <Route
           path="manage-category"
