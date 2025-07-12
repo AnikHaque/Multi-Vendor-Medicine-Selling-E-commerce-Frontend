@@ -10,10 +10,11 @@ import WhyChooseUs from "../components/Choose/Choose";
 import MedicineCategorySection from "../components/Categories/Categories";
 import Medicine from "../components/Medicines/Medicine";
 import Shop from "../components/Shop/Shop";
-import CategoryCardSection from "../components/Categories/Categories";
+
 import DiscountProductsSlider from "../components/Medicines/DiscountMedicine";
 import DiscountSlider from "../components/Medicines/DiscountMedicine";
 import TopMonthlyMedicines from "../components/Medicines/TopMonthMedicine";
+import CategoryCardSection from "../components/Categories/Categories";
 
 const Home = () => {
   return (

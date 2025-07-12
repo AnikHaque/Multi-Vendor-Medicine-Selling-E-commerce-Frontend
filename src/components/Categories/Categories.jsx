@@ -1,101 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function CategoryCardSection() {
   const [categories, setCategories] = useState([]);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:8800/api/categories")
-      .then((res) => res.json())
-      .then(setCategories)
-      .catch(console.error);
+    async function fetchCategories() {
+      try {
+        const res = await axios.get("http://localhost:8800/api/categories");
+        setCategories(Array.isArray(res.data) ? res.data : []);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        setCategories([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCategories();
   }, []);
 
+  if (loading) {
+    return <p className="text-center mt-10">Loading categories...</p>;
+  }
+
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-        gap: 24,
-        padding: 24,
-        maxWidth: 1200,
-        margin: "0 auto",
-      }}
-    >
-      {categories.map(({ category, count, image }) => (
-        <div
-          key={category}
-          onClick={() => navigate(`/category/${category}`)}
-          style={{
-            cursor: "pointer",
-            borderRadius: 12,
-            boxShadow:
-              "0 2px 8px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06)",
-            overflow: "hidden",
-            backgroundColor: "#fff",
-            transition: "transform 0.2s ease, box-shadow 0.2s ease",
-            display: "flex",
-            flexDirection: "column",
-            userSelect: "none",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "translateY(-6px)";
-            e.currentTarget.style.boxShadow =
-              "0 6px 16px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.1)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.boxShadow =
-              "0 2px 8px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06)";
-          }}
-        >
+    <div className="p-6">
+      <h1 className="text-3xl font-bold mb-6 text-center">Browse Categories</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {categories.map((cat) => (
           <div
-            style={{
-              height: 140,
-              width: "100%",
-              overflow: "hidden",
-              flexShrink: 0,
-            }}
+            key={cat._id}
+            className="bg-white rounded-2xl shadow-md p-4 transition-transform hover:scale-105"
           >
             <img
-              src={image || "/default-category.png"}
-              alt={category}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                transition: "transform 0.3s ease",
-              }}
+              src={cat.image || "https://via.placeholder.com/300x200?text=No+Image"}
+              alt={cat.category}
+              className="w-full h-40 object-cover rounded-xl mb-4"
             />
+            <h2 className="text-xl font-semibold mb-2">{cat.category}</h2>
+            <p className="text-gray-600">{cat.count || 0} medicines available</p>
           </div>
-
-          <div style={{ padding: "16px 20px", flexGrow: 1 }}>
-            <h3
-              style={{
-                margin: "0 0 8px 0",
-                fontSize: 20,
-                fontWeight: 600,
-                color: "#2c3e50",
-                textTransform: "capitalize",
-                letterSpacing: "0.03em",
-              }}
-            >
-              {category}
-            </h3>
-            <p
-              style={{
-                margin: 0,
-                fontSize: 14,
-                color: "#7f8c8d",
-                fontWeight: 500,
-              }}
-            >
-              {count} medicine{count !== 1 ? "s" : ""}
-            </p>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

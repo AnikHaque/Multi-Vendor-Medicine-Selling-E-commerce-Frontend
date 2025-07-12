@@ -4,25 +4,20 @@ import axios from "axios";
 export default function ManageCategories() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState({ category: "", image: "" });
   const [editId, setEditId] = useState(null);
 
   const token = localStorage.getItem("token");
-  const limit = 5; // You can change this to your desired items per page
 
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:8800/api/categories?page=${page}&limit=${limit}`, {
+      const res = await axios.get("http://localhost:8800/api/categories", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      setCategories(res.data.data);
-      setTotalPages(res.data.totalPages);
+      setCategories(res.data); // No pagination
     } catch (error) {
       console.error("Failed to fetch categories", error);
       alert("Failed to fetch categories");
@@ -33,7 +28,7 @@ export default function ManageCategories() {
 
   useEffect(() => {
     fetchCategories();
-  }, [page]);
+  }, []);
 
   const openAddModal = () => {
     setForm({ category: "", image: "" });
@@ -89,12 +84,6 @@ export default function ManageCategories() {
     }
   };
 
-  const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setPage(newPage);
-    }
-  };
-
   return (
     <div className="p-6 mt-20 max-w-7xl mx-auto">
       <h1 className="text-3xl font-bold mb-4">Manage Categories</h1>
@@ -105,69 +94,46 @@ export default function ManageCategories() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <>
-          <div className="overflow-x-auto">
-            <table className="min-w-full border border-gray-200">
-              <thead className="bg-gray-100 text-left">
-                <tr>
-                  <th className="px-4 py-2">Category Name</th>
-                  <th className="px-4 py-2">Medicine Count</th>
-                  <th className="px-4 py-2">Image</th>
-                  <th className="px-4 py-2">Actions</th>
+        <div className="overflow-x-auto">
+          <table className="min-w-full border border-gray-200">
+            <thead className="bg-gray-100 text-left">
+              <tr>
+                <th className="px-4 py-2">Category Name</th>
+                <th className="px-4 py-2">Medicine Count</th>
+                <th className="px-4 py-2">Image</th>
+                <th className="px-4 py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {categories.map((cat) => (
+                <tr key={cat._id} className="border-t">
+                  <td className="px-4 py-2">{cat.category}</td>
+                  <td className="px-4 py-2">{cat.count || 0}</td>
+                  <td className="px-4 py-2">
+                    {cat.image ? (
+                      <img
+                        src={cat.image}
+                        alt={cat.category}
+                        className="w-16 h-10 object-cover"
+                      />
+                    ) : (
+                      "No image"
+                    )}
+                  </td>
+                  <td className="px-4 py-2 space-x-2">
+                    <button onClick={() => openEditModal(cat)} className="text-blue-600">Edit</button>
+                    <button
+                      onClick={() => handleDelete(cat._id)}
+                      className="text-red-600"
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {categories.map((cat) => (
-                  <tr key={cat._id} className="border-t">
-                    <td className="px-4 py-2">{cat.category}</td>
-                    <td className="px-4 py-2">{cat.count}</td>
-                    <td className="px-4 py-2">
-                      {cat.image ? (
-                        <img
-                          src={cat.image}
-                          alt={cat.category}
-                          className="w-16 h-10 object-cover"
-                        />
-                      ) : (
-                        "No image"
-                      )}
-                    </td>
-                    <td className="px-4 py-2 space-x-2">
-                      <button onClick={() => openEditModal(cat)} className="text-blue-600">Edit</button>
-                      <button
-                        onClick={() => handleDelete(cat._id)}
-                        className="text-red-600"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Pagination Controls */}
-          <div className="flex justify-between items-center mt-4">
-            <button
-              onClick={() => handlePageChange(page - 1)}
-              disabled={page === 1}
-              className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-            >
-              Previous
-            </button>
-            <span>
-              Page {page} of {totalPages}
-            </span>
-            <button
-              onClick={() => handlePageChange(page + 1)}
-              disabled={page === totalPages}
-              className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-            >
-              Next
-            </button>
-          </div>
-        </>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
 
       {/* Modal */}
