@@ -37,6 +37,9 @@ import ManageUsers from "../components/Dashboard/ManageUsers/ManageUsers";
 import ManageCategory from "../components/Dashboard/ManageCategories/ManageCategory";
 import AdminPayments from "../components/Dashboard/Payments/Payments";
 import SalesReport from "../components/Dashboard/Report/SalesReport";
+import ManageMedicines from "../components/Dashboard/ManageMedicines/ManageMedicines";
+import SellerPaymentHistory from "../components/Dashboard/Payments/SellerPaymentHistory";
+import UserPaymentHistory from "../components/Dashboard/Payments/UserPaymentHistory";
 
 export default function AppRoutes() {
  let user = null;
@@ -83,8 +86,20 @@ const token = localStorage.getItem("token") || null;
           element={<AdminPayments user={user} token={token}></AdminPayments>}
         />
          <Route
+          path="user-payment"
+          element={<UserPaymentHistory user={user} token={token}></UserPaymentHistory>}
+        />
+         <Route
           path="add-medicine"
           element={<CreateMedicinePage user={user} token={token}></CreateMedicinePage>}
+        />
+<Route
+          path="payment-history"
+          element={<SellerPaymentHistory ></SellerPaymentHistory>}
+        />
+        <Route
+          path="manage-medicines"
+          element={<ManageMedicines user={user} token={token}></ManageMedicines>}
         />
 
          <Route

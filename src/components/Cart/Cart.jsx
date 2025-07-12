@@ -119,7 +119,7 @@ export default function Cart() {
                   <tr key={item._id}>
                     <td>{med.name || "Unknown"}</td>
                     <td>{med.company || "Unknown"}</td>
-                    <td>${med.price ? med.price.toFixed(2) : "0.00"}</td>
+                    <td>${med.price ? med.price : "0.00"}</td>
                     <td>
                       <button
                         onClick={() => updateQuantity(item._id, item.quantity - 1)}

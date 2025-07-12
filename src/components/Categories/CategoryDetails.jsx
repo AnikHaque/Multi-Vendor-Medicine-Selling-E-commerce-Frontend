@@ -53,7 +53,7 @@ export default function CategoryDetails() {
             <tr key={med._id}>
               <td>{med.name}</td>
               <td>{med.company}</td>
-              <td>${med.price.toFixed(2)}</td>
+              <td>${med.price}</td>
               <td>{med.discount}%</td>
               <td>
                 <button onClick={() => setModalMedicine(med)}>👁️ Eye</button>{" "}
