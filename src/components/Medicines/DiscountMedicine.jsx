@@ -1,43 +1,65 @@
-import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-const DiscountMedicine = () => {
+const DiscountSlider = () => {
   const [discounted, setDiscounted] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8800/api/discount-medicines").then((res) => {
-      setDiscounted(res.data);
-    });
+    const fetch = async () => {
+      const res = await axios.get("http://localhost:8800/api/medicines");
+      const all = res.data;
+
+      // Filter only products with discount > 0 and valid price
+      const filtered = all
+        .filter((m) => m.discount > 0 && m.price > 0)
+        .map((m) => ({
+          ...m,
+          discountedPrice: Math.round(m.price - (m.price * m.discount) / 100),
+        }));
+
+      setDiscounted(filtered);
+    };
+
+    fetch();
   }, []);
 
   return (
-    <div className="p-5">
-      <h2 className="text-2xl font-bold mb-4">Discounted Medicines</h2>
+    <div className="px-4 my-8">
+      <h2 className="text-2xl font-bold mb-4">🔥 Discount Products</h2>
       <Swiper
         modules={[Navigation]}
         navigation
         spaceBetween={20}
         slidesPerView={3}
         breakpoints={{
+          640: { slidesPerView: 1 },
           768: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
         }}
       >
         {discounted.map((med) => (
           <SwiperSlide key={med._id}>
-            <div className="border p-4 rounded shadow hover:shadow-lg">
-              <img src={med.image} alt={med.name} className="h-32 w-full object-cover rounded" />
+            <div className="bg-white rounded-lg shadow-md p-4">
+              <img
+                src={med.image}
+                alt={med.name}
+                className="h-40 w-full object-cover rounded"
+              />
               <h3 className="text-lg font-semibold mt-2">{med.name}</h3>
-              <p className="text-sm text-gray-600">{med.company}</p>
-              <p className="text-red-600 font-bold">
-                ৳{med.price - (med.price * med.discount) / 100}{" "}
-                <span className="line-through text-gray-500">৳{med.price}</span>
-              </p>
-              <p className="text-sm text-green-500">{med.discount}% off</p>
+              <p className="text-gray-500 text-sm">{med.company}</p>
+              <div className="mt-2">
+                <p className="text-red-600 font-bold">
+                  ${med.discountedPrice}
+                  <span className="text-gray-400 line-through ml-2">
+                    ${med.price}
+                  </span>
+                </p>
+                <p className="text-green-500 text-sm">Save {med.discount}%</p>
+              </div>
             </div>
           </SwiperSlide>
         ))}
@@ -46,4 +68,4 @@ const DiscountMedicine = () => {
   );
 };
 
-export default DiscountMedicine;
+export default DiscountSlider;
