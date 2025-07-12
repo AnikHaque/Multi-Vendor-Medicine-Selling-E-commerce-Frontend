@@ -13,6 +13,7 @@ import Shop from "../components/Shop/Shop";
 import CategoryCardSection from "../components/Categories/Categories";
 import DiscountProductsSlider from "../components/Medicines/DiscountMedicine";
 import DiscountSlider from "../components/Medicines/DiscountMedicine";
+import TopMonthlyMedicines from "../components/Medicines/TopMonthMedicine";
 
 const Home = () => {
   return (
@@ -23,11 +24,7 @@ const Home = () => {
 <CategoryCardSection></CategoryCardSection>
 <Shop></Shop>
       <ServiceCards />
-      <DiscountSlider></DiscountSlider>
       <Stat></Stat>
-      <PopularSellers />
-    <Medicine></Medicine>
-      <PopularTasks></PopularTasks>
       <WhyChooseUs></WhyChooseUs>
       <AppPromo />
       <HomeBlog></HomeBlog>

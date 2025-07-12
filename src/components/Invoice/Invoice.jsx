@@ -9,7 +9,6 @@ export default function Invoice() {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Get session_id from query params
   const sessionId = new URLSearchParams(location.search).get("session_id");
 
   useEffect(() => {
@@ -32,65 +31,123 @@ export default function Invoice() {
 
   const handlePrint = () => {
     const doc = new jsPDF();
-    doc.setFontSize(22);
-    doc.text("My Medicine Shop", 20, 20);
-    doc.setFontSize(16);
-    doc.text(`Invoice for ${order.customer.name || order.userEmail}`, 20, 40);
-    doc.text(`Email: ${order.customer.email}`, 20, 50);
-    doc.text(`Date: ${new Date(order.createdAt).toLocaleDateString()}`, 20, 60);
+    doc.setFontSize(18);
+    doc.text("My Medicine Shop - Invoice", 20, 20);
+    doc.setFontSize(12);
+    doc.text(`Name: ${order.customer.name || order.userEmail}`, 20, 35);
+    doc.text(`Email: ${order.customer.email}`, 20, 42);
+    doc.text(`Date: ${new Date(order.createdAt).toLocaleDateString()}`, 20, 49);
+    doc.line(20, 55, 190, 55);
 
-    let y = 80;
-    order.line_items.forEach((item, i) => {
-      doc.text(
-        `${i + 1}. ${item.name} - Qty: ${item.quantity} - $${item.amount.toFixed(2)}`,
-        20,
-        y
-      );
-      y += 10;
+    let y = 65;
+    order.line_items.forEach((item, index) => {
+      doc.text(`${index + 1}. ${item.name}`, 20, y);
+      doc.text(`Qty: ${item.quantity}`, 120, y);
+      doc.text(`$${item.amount.toFixed(2)}`, 160, y);
+      y += 8;
     });
 
+    doc.setFontSize(14);
     doc.text(`Total: $${order.amount_total.toFixed(2)}`, 20, y + 10);
     doc.save("invoice.pdf");
   };
 
-  if (loading) return <p>Loading invoice...</p>;
-  if (!order) return <p>Order not found or you are not authorized.</p>;
+  if (loading)
+    return (
+      <div style={{ textAlign: "center", padding: 50, fontSize: 18 }}>Loading invoice...</div>
+    );
+  if (!order)
+    return (
+      <div style={{ textAlign: "center", padding: 50, fontSize: 18 }}>
+        Order not found or you are not authorized.
+      </div>
+    );
 
   return (
-    <div className="mt-40" style={{ padding: "20px" }}>
-      <img src="/logo192.png" alt="Logo" style={{ maxWidth: 100, marginBottom: 20 }} />
-      <h2>Invoice</h2>
-      <p>
-        <strong>Name:</strong> {order.customer.name || order.userEmail}
-      </p>
-      <p>
-        <strong>Email:</strong> {order.customer.email}
-      </p>
-      <p>
-        <strong>Date:</strong> {new Date(order.createdAt).toLocaleString()}
-      </p>
+    <div
+      className="invoice-page"
+      style={{
+        maxWidth: 800,
+        margin: "60px auto",
+        backgroundColor: "#fff",
+        padding: 30,
+        borderRadius: 10,
+        boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: 15 }}>
+        <img src="https://devtechgroup.com/wp-content/uploads/2021/06/2021-Devtech-logo-m.png" alt="Logo" style={{ width: 50 }} />
+        <h1 style={{ margin: 0, color: "#2c3e50" }}>Invoice</h1>
+      </div>
 
-      <table border="1" cellPadding="10" cellSpacing="0" style={{ width: "100%", marginTop: 20 }}>
+      <hr style={{ margin: "20px 0" }} />
+
+      <div style={{ marginBottom: 20 }}>
+        <p><strong>Name:</strong> {order.customer.name || order.userEmail}</p>
+        <p><strong>Email:</strong> {order.customer.email}</p>
+        <p><strong>Date:</strong> {new Date(order.createdAt).toLocaleString()}</p>
+      </div>
+
+      <table
+        style={{
+          width: "100%",
+          borderCollapse: "collapse",
+          marginBottom: 30,
+          fontSize: 15,
+        }}
+      >
         <thead>
-          <tr>
-            <th>Medicine</th>
-            <th>Quantity</th>
-            <th>Amount</th>
+          <tr style={{ backgroundColor: "#f0f0f0" }}>
+            <th style={cellHeaderStyle}>Medicine</th>
+            <th style={cellHeaderStyle}>Quantity</th>
+            <th style={cellHeaderStyle}>Amount</th>
           </tr>
         </thead>
         <tbody>
           {order.line_items.map((item, i) => (
             <tr key={i}>
-              <td>{item.name}</td>
-              <td>{item.quantity}</td>
-              <td>${item.amount.toFixed(2)}</td>
+              <td style={cellBodyStyle}>{item.name}</td>
+              <td style={cellBodyStyle}>{item.quantity}</td>
+              <td style={cellBodyStyle}>${item.amount.toFixed(2)}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <h3>Total: ${order.amount_total.toFixed(2)}</h3>
-      <button onClick={handlePrint} style={{ marginTop: "20px" }}>Print / Download PDF</button>
+      <h2 style={{ textAlign: "right", color: "#27ae60" }}>
+        Total: ${order.amount_total.toFixed(2)}
+      </h2>
+
+      <div style={{ textAlign: "right", marginTop: 20 }}>
+        <button
+          onClick={handlePrint}
+          style={{
+            backgroundColor: "#3498db",
+            color: "#fff",
+            padding: "12px 24px",
+            fontSize: 15,
+            border: "none",
+            borderRadius: 6,
+            cursor: "pointer",
+            transition: "background 0.3s",
+          }}
+        >
+          📄 Print / Download PDF
+        </button>
+      </div>
     </div>
   );
 }
+
+const cellHeaderStyle = {
+  padding: 12,
+  border: "1px solid #ccc",
+  fontWeight: "bold",
+  textAlign: "left",
+};
+
+const cellBodyStyle = {
+  padding: 12,
+  border: "1px solid #eee",
+};
