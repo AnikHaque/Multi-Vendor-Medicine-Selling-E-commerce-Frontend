@@ -4,21 +4,25 @@ import axios from "axios";
 export default function ManageCategories() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState({ category: "", image: "" });
   const [editId, setEditId] = useState(null);
 
   const token = localStorage.getItem("token");
+  const limit = 5; // You can change this to your desired items per page
 
-  // Fetch categories with medicine count
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:8800/api/categories", {
+      const res = await axios.get(`http://localhost:8800/api/categories?page=${page}&limit=${limit}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setCategories(res.data);
+
+      setCategories(res.data.data);
+      setTotalPages(res.data.totalPages);
     } catch (error) {
       console.error("Failed to fetch categories", error);
       alert("Failed to fetch categories");
@@ -29,7 +33,7 @@ export default function ManageCategories() {
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  }, [page]);
 
   const openAddModal = () => {
     setForm({ category: "", image: "" });
@@ -65,7 +69,6 @@ export default function ManageCategories() {
     }
     try {
       if (editId) {
-        // Update
         await axios.put(
           `http://localhost:8800/api/categories/${editId}`,
           form,
@@ -73,7 +76,6 @@ export default function ManageCategories() {
         );
         alert("Category updated");
       } else {
-        // Create
         await axios.post("http://localhost:8800/api/categories", form, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -87,126 +89,131 @@ export default function ManageCategories() {
     }
   };
 
-  if (loading) return <p>Loading categories...</p>;
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+    }
+  };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Manage Categories</h1>
-      <button onClick={openAddModal} style={{ marginBottom: 20 }}>
+    <div className="p-6 mt-20 max-w-7xl mx-auto">
+      <h1 className="text-3xl font-bold mb-4">Manage Categories</h1>
+      <button onClick={openAddModal} className="mb-4 bg-blue-600 text-white px-4 py-2 rounded">
         + Add Category
       </button>
 
-      <table border="1" cellPadding="10" cellSpacing="0" width="100%">
-        <thead>
-          <tr>
-            <th>Category Name</th>
-            <th>Medicine Count</th>
-            <th>Image</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {categories.length === 0 && (
-            <tr>
-              <td colSpan="4" style={{ textAlign: "center" }}>
-                No categories found.
-              </td>
-            </tr>
-          )}
-          {categories.map((cat) => (
-            <tr key={cat._id}>
-              <td>{cat.category}</td>
-              <td>{cat.count}</td>
-              <td>
-                {cat.image ? (
-                  <img
-                    src={cat.image}
-                    alt={cat.category}
-                    style={{ width: 60, height: 40, objectFit: "cover" }}
-                  />
-                ) : (
-                  "No image"
-                )}
-              </td>
-              <td>
-                <button onClick={() => openEditModal(cat)}>Edit</button>{" "}
-                <button
-                  onClick={() => handleDelete(cat._id)}
-                  style={{ color: "red" }}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <div className="overflow-x-auto">
+            <table className="min-w-full border border-gray-200">
+              <thead className="bg-gray-100 text-left">
+                <tr>
+                  <th className="px-4 py-2">Category Name</th>
+                  <th className="px-4 py-2">Medicine Count</th>
+                  <th className="px-4 py-2">Image</th>
+                  <th className="px-4 py-2">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {categories.map((cat) => (
+                  <tr key={cat._id} className="border-t">
+                    <td className="px-4 py-2">{cat.category}</td>
+                    <td className="px-4 py-2">{cat.count}</td>
+                    <td className="px-4 py-2">
+                      {cat.image ? (
+                        <img
+                          src={cat.image}
+                          alt={cat.category}
+                          className="w-16 h-10 object-cover"
+                        />
+                      ) : (
+                        "No image"
+                      )}
+                    </td>
+                    <td className="px-4 py-2 space-x-2">
+                      <button onClick={() => openEditModal(cat)} className="text-blue-600">Edit</button>
+                      <button
+                        onClick={() => handleDelete(cat._id)}
+                        className="text-red-600"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Pagination Controls */}
+          <div className="flex justify-between items-center mt-4">
+            <button
+              onClick={() => handlePageChange(page - 1)}
+              disabled={page === 1}
+              className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+            >
+              Previous
+            </button>
+            <span>
+              Page {page} of {totalPages}
+            </span>
+            <button
+              onClick={() => handlePageChange(page + 1)}
+              disabled={page === totalPages}
+              className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        </>
+      )}
 
       {/* Modal */}
       {modalOpen && (
         <div
           onClick={() => setModalOpen(false)}
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0,0,0,0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 9999,
-          }}
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
         >
           <form
             onClick={(e) => e.stopPropagation()}
             onSubmit={handleSubmit}
-            style={{
-              backgroundColor: "#fff",
-              padding: 20,
-              borderRadius: 8,
-              minWidth: 320,
-            }}
+            className="bg-white p-6 rounded shadow-md min-w-[320px]"
           >
-            <h2>{editId ? "Update Category" : "Add Category"}</h2>
+            <h2 className="text-lg font-semibold mb-4">
+              {editId ? "Update Category" : "Add Category"}
+            </h2>
 
-            <div style={{ marginBottom: 10 }}>
-              <label>
-                Category Name <br />
-                <input
-                  type="text"
-                  value={form.category}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, category: e.target.value }))
-                  }
-                  required
-                  style={{ width: "100%" }}
-                />
-              </label>
+            <label className="block mb-2">
+              Category Name
+              <input
+                type="text"
+                value={form.category}
+                onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
+                required
+                className="mt-1 w-full border px-2 py-1 rounded"
+              />
+            </label>
+
+            <label className="block mb-4">
+              Image URL (optional)
+              <input
+                type="text"
+                value={form.image}
+                onChange={(e) => setForm((f) => ({ ...f, image: e.target.value }))}
+                className="mt-1 w-full border px-2 py-1 rounded"
+              />
+            </label>
+
+            <div className="flex justify-end space-x-2">
+              <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+                Save
+              </button>
+              <button type="button" onClick={() => setModalOpen(false)} className="text-gray-600">
+                Cancel
+              </button>
             </div>
-
-            <div style={{ marginBottom: 10 }}>
-              <label>
-                Image URL <br />
-                <input
-                  type="text"
-                  value={form.image}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, image: e.target.value }))
-                  }
-                  placeholder="Optional"
-                  style={{ width: "100%" }}
-                />
-              </label>
-            </div>
-
-            <button type="submit" style={{ marginRight: 10 }}>
-              Save
-            </button>
-            <button type="button" onClick={() => setModalOpen(false)}>
-              Cancel
-            </button>
           </form>
         </div>
       )}
