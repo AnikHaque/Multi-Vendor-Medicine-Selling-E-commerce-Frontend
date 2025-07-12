@@ -42,6 +42,7 @@ import SellerPaymentHistory from "../components/Dashboard/Payments/SellerPayment
 import UserPaymentHistory from "../components/Dashboard/Payments/UserPaymentHistory";
 import AllMedicines from "../components/Shop/Shop";
 import MedicinesTable from "../components/Shop/MedicineTable";
+import ManageBannerAdvertise from "../components/Dashboard/ManageBanner/ManageBanner";
 
 export default function AppRoutes() {
  let user = null;
@@ -69,6 +70,8 @@ const token = localStorage.getItem("token") || null;
       <Route path="/cart" element={<Cart user={user} token={token} />} />
        <Route path="/checkout" element={<Checkout user={user} token={token} />} />
         <Route path="/shop" element={<MedicinesTable user={user} token={token} />} />
+        <Route path="/shop" element={<MedicinesTable user={user} token={token} />} />
+        
        <Route path="/invoice" element={<Invoice  />} />
       <Route path="/bids/:taskId" element={<BidsPage />} />
       <Route path="/404" element={<NotFound />} />
@@ -84,6 +87,7 @@ const token = localStorage.getItem("token") || null;
           path="manage-category"
           element={<ManageCategory user={user} token={token}></ManageCategory>}
         />
+        <Route path="manage-banner" element={<ManageBannerAdvertise user={user} token={token} />} />
         <Route
           path="manage-payment"
           element={<AdminPayments user={user} token={token}></AdminPayments>}

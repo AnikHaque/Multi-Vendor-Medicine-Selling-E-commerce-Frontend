@@ -75,7 +75,7 @@ export default function SalesReport() {
   ];
 
   return (
-    <div className="p-6">
+    <div className="p-6 mt-20">
       <h2 className="text-2xl font-bold mb-4">Sales Report</h2>
 
       <div className="flex gap-4 mb-4">

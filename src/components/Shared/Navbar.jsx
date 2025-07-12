@@ -50,7 +50,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="bg-black text-white px-4 py-6 shadow-md fixed top-0 w-full z-50">
+    <div className="bg-[#2b97a4] text-white px-4 py-4 shadow-md fixed top-0 w-full z-50">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
         <Link to="/" className="text-xl font-bold flex items-center gap-2">
           <img
@@ -132,7 +132,7 @@ export default function Navbar() {
                       Update Profile
                     </Link>
                     <Link to="/dashboard" className="block mb-2 hover:underline">
-                      {role}
+                      Dashboard
                     </Link>
                     <button
                       onClick={logout}

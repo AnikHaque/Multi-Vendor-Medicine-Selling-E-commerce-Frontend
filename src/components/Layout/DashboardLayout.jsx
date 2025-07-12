@@ -85,25 +85,15 @@ const DashboardLayout = () => {
               {navItem("/dashboard/manage-users", <Flame className="w-5 h-5" />, "Manage Users")}
               {navItem("/dashboard/manage-category", <Flame className="w-5 h-5" />, "Manage Category")}
               {navItem("/dashboard/manage-payment", <Flame className="w-5 h-5" />, "Manage Payment")}
-              {navItem("/dashboard/add-category", <Flame className="w-5 h-5" />, "Add a Category")}
-              {navItem("/dashboard/add-medicine", <Flame className="w-5 h-5" />, "Add a Medicine")}
               {navItem("/dashboard/sales", <Flame className="w-5 h-5" />, "Sales Reports")}
-              {navItem("/dashboard/manage-medicines", <Flame className="w-5 h-5" />, "Manage Medicine")}
-              {navItem("/dashboard/payment-history", <Flame className="w-5 h-5" />, "Payment History")}
+              {navItem("/dashboard/manage-banner", <Flame className="w-5 h-5" />, "Manage Banner")}
+
             </>
           )}
 
           {/* ✅ SELLER ONLY */}
           {role === "seller" && (
             <>
-              {navItem("/dashboard/add-blog", <Flame className="w-5 h-5" />, "Add a Blog")}
-              {navItem("/dashboard/my-tasks", <CheckCircle className="w-5 h-5" />, "My Tasks")}
-               {navItem("/dashboard/manage-users", <Flame className="w-5 h-5" />, "Manage Users")}
-              {navItem("/dashboard/manage-category", <Flame className="w-5 h-5" />, "Manage Category")}
-              {navItem("/dashboard/manage-payment", <Flame className="w-5 h-5" />, "Manage Payment")}
-              {navItem("/dashboard/add-category", <Flame className="w-5 h-5" />, "Add a Category")}
-              {navItem("/dashboard/add-medicine", <Flame className="w-5 h-5" />, "Add a Medicine")}
-              {navItem("/dashboard/sales", <Flame className="w-5 h-5" />, "Sales Reports")}
               {navItem("/dashboard/manage-medicines", <Flame className="w-5 h-5" />, "Manage Medicine")}
               {navItem("/dashboard/payment-history", <Flame className="w-5 h-5" />, "Payment History")}
             </>

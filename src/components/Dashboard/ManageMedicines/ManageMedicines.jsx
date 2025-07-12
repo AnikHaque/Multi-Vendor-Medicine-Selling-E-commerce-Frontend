@@ -24,15 +24,23 @@ export default function ManageMedicines() {
   const token = localStorage.getItem("token");
 
   const fetchMedicines = async () => {
-    const res = await axios.get("http://localhost:8800/api/my-medicines", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setMedicines(res.data);
+    try {
+      const res = await axios.get("http://localhost:8800/api/my-medicines", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setMedicines(res.data);
+    } catch (err) {
+      console.error("Failed to fetch medicines", err);
+    }
   };
 
   const fetchCategories = async () => {
-    const res = await axios.get("http://localhost:8800/api/categories");
-    setCategories(res.data);
+    try {
+      const res = await axios.get("http://localhost:8800/api/categories");
+      setCategories(res.data);
+    } catch (err) {
+      console.error("Failed to fetch categories", err);
+    }
   };
 
   useEffect(() => {
@@ -69,75 +77,145 @@ export default function ManageMedicines() {
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Manage My Medicines</h2>
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded"
-      >
-        + Add Medicine
-      </button>
+    <div className="p-6 mt-20 max-w-7xl mx-auto">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-3xl font-bold">💊 Manage My Medicines</h2>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow"
+        >
+          + Add Medicine
+        </button>
+      </div>
 
-      <table className="w-full border">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Generic</th>
-            <th>Category</th>
-            <th>Company</th>
-            <th>Unit</th>
-            <th>Price</th>
-            <th>Discount %</th>
-          </tr>
-        </thead>
-        <tbody>
-          {medicines.map((med) => (
-            <tr key={med._id} className="text-center border-t">
-              <td>{med.name}</td>
-              <td>{med.genericName}</td>
-              <td>{med.category}</td>
-              <td>{med.company}</td>
-              <td>{med.unit}</td>
-              <td>${med.price}</td>
-              <td>{med.discount || 0}%</td>
+      <div className="overflow-x-auto shadow rounded-xl bg-white">
+        <table className="min-w-full table-auto text-sm">
+          <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
+            <tr>
+              <th className="px-4 py-3 text-left">Name</th>
+              <th className="px-4 py-3 text-left">Generic</th>
+              <th className="px-4 py-3 text-left">Category</th>
+              <th className="px-4 py-3 text-left">Company</th>
+              <th className="px-4 py-3 text-left">Unit</th>
+              <th className="px-4 py-3 text-left">Price ($)</th>
+              <th className="px-4 py-3 text-left">Discount (%)</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {medicines.map((med) => (
+              <tr key={med._id} className="hover:bg-gray-50">
+                <td className="px-4 py-3">{med.name}</td>
+                <td className="px-4 py-3">{med.genericName}</td>
+                <td className="px-4 py-3">{med.category}</td>
+                <td className="px-4 py-3">{med.company}</td>
+                <td className="px-4 py-3">{med.unit}</td>
+                <td className="px-4 py-3">${med.price}</td>
+                <td className="px-4 py-3">{med.discount || 0}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Add Medicine Modal */}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         contentLabel="Add Medicine"
-        className="bg-white p-6 rounded shadow max-w-md mx-auto mt-24"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center"
+        className="bg-white max-w-lg mx-auto mt-24 p-8 rounded-lg shadow-lg relative"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-50"
       >
-        <h3 className="text-lg font-semibold mb-4">Add New Medicine</h3>
+        <h3 className="text-xl font-bold mb-4">Add New Medicine</h3>
 
-        <div className="space-y-3">
-          <input name="name" placeholder="Item Name" value={form.name} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
-          <input name="genericName" placeholder="Generic Name" value={form.genericName} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
-          <input name="description" placeholder="Short Description" value={form.description} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
-          <input name="image" placeholder="Image URL" value={form.image} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
-          <select name="category" value={form.category} onChange={handleChange} className="w-full border px-3 py-2 rounded">
+        <div className="space-y-4">
+          <input
+            name="name"
+            placeholder="Medicine Name"
+            value={form.name}
+            onChange={handleChange}
+            className="w-full border px-4 py-2 rounded-lg"
+          />
+          <input
+            name="genericName"
+            placeholder="Generic Name"
+            value={form.genericName}
+            onChange={handleChange}
+            className="w-full border px-4 py-2 rounded-lg"
+          />
+          <input
+            name="description"
+            placeholder="Short Description"
+            value={form.description}
+            onChange={handleChange}
+            className="w-full border px-4 py-2 rounded-lg"
+          />
+          <input
+            name="image"
+            placeholder="Image URL"
+            value={form.image}
+            onChange={handleChange}
+            className="w-full border px-4 py-2 rounded-lg"
+          />
+          <select
+            name="category"
+            value={form.category}
+            onChange={handleChange}
+            className="w-full border px-4 py-2 rounded-lg"
+          >
             <option value="">Select Category</option>
             {categories.map((cat) => (
-              <option key={cat._id} value={cat.category}>{cat.category}</option>
+              <option key={cat._id} value={cat.category}>
+                {cat.category}
+              </option>
             ))}
           </select>
-          <input name="company" placeholder="Company" value={form.company} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
-          <select name="unit" value={form.unit} onChange={handleChange} className="w-full border px-3 py-2 rounded">
+          <input
+            name="company"
+            placeholder="Company Name"
+            value={form.company}
+            onChange={handleChange}
+            className="w-full border px-4 py-2 rounded-lg"
+          />
+          <select
+            name="unit"
+            value={form.unit}
+            onChange={handleChange}
+            className="w-full border px-4 py-2 rounded-lg"
+          >
             <option value="mg">MG</option>
             <option value="ml">ML</option>
           </select>
-          <input name="price" type="number" placeholder="Per Unit Price" value={form.price} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
-          <input name="discount" type="number" placeholder="Discount %" value={form.discount} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
+          <input
+            name="price"
+            type="number"
+            placeholder="Price Per Unit ($)"
+            value={form.price}
+            onChange={handleChange}
+            className="w-full border px-4 py-2 rounded-lg"
+          />
+          <input
+            name="discount"
+            type="number"
+            placeholder="Discount (%)"
+            value={form.discount}
+            onChange={handleChange}
+            className="w-full border px-4 py-2 rounded-lg"
+          />
         </div>
 
-        <div className="mt-4 flex justify-end gap-2">
-          <button onClick={handleSubmit} className="bg-green-600 text-white px-4 py-2 rounded">Add</button>
-          <button onClick={() => setIsModalOpen(false)} className="bg-gray-400 text-white px-4 py-2 rounded">Cancel</button>
+        <div className="flex justify-end space-x-3 mt-6">
+          <button
+            onClick={handleSubmit}
+            className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg"
+          >
+            Add Medicine
+          </button>
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-lg"
+          >
+            Cancel
+          </button>
         </div>
       </Modal>
     </div>
