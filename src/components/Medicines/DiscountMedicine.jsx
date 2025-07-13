@@ -43,24 +43,7 @@ const DiscountSlider = () => {
       >
         {discounted.map((med) => (
           <SwiperSlide key={med._id}>
-            {/* <div className="bg-white rounded-lg shadow-md p-4">
-              <img
-                src={med.image}
-                alt={med.name}
-                className="h-40 w-full object-cover rounded"
-              />
-              <h3 className="text-lg font-semibold mt-2">{med.name}</h3>
-              <p className="text-gray-500 text-sm">{med.company}</p>
-              <div className="mt-2">
-                <p className="text-red-600 font-bold">
-                  ${med.discountedPrice}
-                  <span className="text-gray-400 line-through ml-2">
-                    ${med.price}
-                  </span>
-                </p>
-                <p className="text-green-500 text-sm">Save {med.discount}%</p>
-              </div>
-            </div> */}
+           
 
             <div class="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-96">
   <div class="relative p-2.5 h-96 overflow-hidden rounded-xl bg-clip-border">

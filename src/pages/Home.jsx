@@ -15,6 +15,8 @@ import DiscountProductsSlider from "../components/Medicines/DiscountMedicine";
 import DiscountSlider from "../components/Medicines/DiscountMedicine";
 import TopMonthlyMedicines from "../components/Medicines/TopMonthMedicine";
 import CategoryCardSection from "../components/Categories/Categories";
+import HealthcareProducts from "../components/Products/Products";
+import TodayHotDeals from "../components/HotDeal/HotDeal";
 
 const Home = () => {
   return (
@@ -25,6 +27,8 @@ const Home = () => {
 <CategoryCardSection></CategoryCardSection>
 <Shop></Shop>
       <ServiceCards />
+      <HealthcareProducts></HealthcareProducts>
+      <TodayHotDeals></TodayHotDeals>
       <WhyChooseUs></WhyChooseUs>
       <AppPromo />
       <HomeBlog></HomeBlog>

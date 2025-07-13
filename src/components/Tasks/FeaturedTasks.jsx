@@ -67,7 +67,7 @@ const ServiceCards = () => {
         >
           {discounted.map((med) => (
             <SwiperSlide key={med._id}>
-              <div className="flex flex-col h-full bg-white shadow-md border border-gray-200 rounded-lg overflow-hidden">
+              <div className="flex flex-col h-[500px] bg-white shadow-md border border-gray-200 rounded-lg overflow-hidden ">
                 <div className="h-64">
                   <img
                     src={med.image || "/default-medicine.png"}
@@ -93,7 +93,7 @@ const ServiceCards = () => {
                       </p>
                     </div>
                     <p className="text-gray-600 text-sm line-clamp-3">
-                      {med.description || "No description available."}
+                      {med.description.slice(0,100) || "No description available."}
                     </p>
                   </div>
                   <button
