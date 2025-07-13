@@ -25,7 +25,6 @@ const Home = () => {
 <CategoryCardSection></CategoryCardSection>
 <Shop></Shop>
       <ServiceCards />
-      <Stat></Stat>
       <WhyChooseUs></WhyChooseUs>
       <AppPromo />
       <HomeBlog></HomeBlog>
