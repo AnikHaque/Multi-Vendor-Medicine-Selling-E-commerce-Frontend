@@ -17,6 +17,10 @@ import TopMonthlyMedicines from "../components/Medicines/TopMonthMedicine";
 import CategoryCardSection from "../components/Categories/Categories";
 import HealthcareProducts from "../components/Products/Products";
 import TodayHotDeals from "../components/HotDeal/HotDeal";
+import TopSellingVendors from "../components/TopSelling/TopSelling";
+import RecentlyAdded from "../components/RecentlyAdded/RecentlyAdded";
+import CovidDefense from "../components/CovidDefense/CovidDefense";
+import ProductGrid from "../components/Products/ProductGrid";
 
 const Home = () => {
   return (

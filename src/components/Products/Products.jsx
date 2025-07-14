@@ -19,7 +19,7 @@ const products = [
     originalPrice: null,
     discount: null,
     rating: 0,
-    image: "https://i.ibb.co/K9RYzVk/b12.png",
+    image: "https://demo2.wpthemego.com/themes/sw_mallon/wp-content/uploads/2021/06/Vitamin-B12-1000mcg.jpg",
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const products = [
     originalPrice: null,
     discount: null,
     rating: 1,
-    image: "https://i.ibb.co/7ktWzTR/ux-thermo.png",
+    image: "https://demo2.wpthemego.com/themes/sw_mallon/wp-content/uploads/2021/06/UX-A-01-Non-Contact-Infrared-Thermometer.jpg",
   },
   {
     id: 4,
@@ -39,7 +39,7 @@ const products = [
     originalPrice: 425,
     discount: "-1%",
     rating: 0,
-    image: "https://i.ibb.co/Jct3ZPy/milk.png",
+    image: "https://demo2.wpthemego.com/themes/sw_mallon/wp-content/uploads/2021/06/Milk-Powder-900g.jpg",
   },
   {
     id: 5,
@@ -49,7 +49,7 @@ const products = [
     originalPrice: 215,
     discount: "-16%",
     rating: 1,
-    image: "https://i.ibb.co/yR0KWZj/effervescent.png",
+    image: "https://demo2.wpthemego.com/themes/sw_mallon/wp-content/uploads/2021/06/Vitamin-C-20-Effervescent-Tablets.jpg",
   },
   {
     id: 6,
@@ -59,7 +59,7 @@ const products = [
     originalPrice: 256,
     discount: "-22%",
     rating: 0,
-    image: "https://i.ibb.co/ZLJjrpN/vigorum.png",
+    image: "https://demo2.wpthemego.com/themes/sw_mallon/wp-content/uploads/2021/06/Vigorun-Forehead-and-Ear-Thermometer.jpg",
   },
   {
     id: 7,
@@ -69,7 +69,7 @@ const products = [
     originalPrice: null,
     discount: null,
     rating: 1,
-    image: "https://i.ibb.co/jvgp4rs/mask.png",
+    image: "https://demo2.wpthemego.com/themes/sw_mallon/wp-content/uploads/2021/06/Pack-of-50-Disposable-Face-Masks.jpg",
   },
   {
     id: 8,
@@ -79,7 +79,7 @@ const products = [
     originalPrice: null,
     discount: null,
     rating: 0,
-    image: "https://i.ibb.co/4J2D5Lk/liquid-b12.png",
+    image: "https://demo2.wpthemego.com/themes/sw_mallon/wp-content/uploads/2021/06/Liqid-Vitamin-B12-30ml.jpg",
   },
 ];
 
