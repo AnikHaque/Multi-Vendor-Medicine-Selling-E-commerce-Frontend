@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const blogPosts = [
   {
@@ -30,48 +30,33 @@ const blogPosts = [
   }
 ];
 
-const HomeBlog = () => {
+
+const BlogDetails = () => {
+  const { id } = useParams();
+  const blog = blogPosts.find((post) => post.id === parseInt(id));
+
+  if (!blog) {
+    return <div className="p-10 text-center">Blog not found.</div>;
+  }
+
   return (
-    <section className="bg-white py-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl">
-            recent posts
-          </h1>
-        </div>
-
-        <hr className="my-8 border-gray-200" />
-
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {blogPosts.map((blog) => (
-            <div key={blog.id}>
-              <img
-                className="object-cover w-full h-64 rounded-lg lg:h-80"
-                src={blog.image}
-                alt={blog.title}
-              />
-              <div className="mt-8">
-                <span className="text-blue-500 uppercase">Blog</span>
-                <h1 className="mt-4 text-xl font-semibold text-gray-800">
-                  {blog.title}
-                </h1>
-                <p className="mt-2 text-gray-500">{blog.excerpt.slice(0,200)}</p>
-                <div className="flex items-center justify-between mt-4">
-                  <p className="text-sm text-gray-500">{blog.date}</p>
-                  <Link
-                    to={`/blog/${blog.id}`}
-                    className="text-blue-500 underline hover:text-blue-400"
-                  >
-                    Read more
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <div className="max-w-4xl mx-auto p-6 mt-20">
+      <img
+        src={blog.image}
+        alt={blog.title}
+        className="w-full h-96 object-cover rounded-lg mb-6"
+      />
+      <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
+      <p className="text-gray-600 mb-2">{blog.date}</p>
+      <hr className="mb-6" />
+      <p className="text-lg text-gray-700 leading-relaxed">
+        {/* Replace with dynamic content */}
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non
+        facilisis erat. Quisque at dignissim lorem, nec cursus quam. Curabitur
+        sit amet pretium nisi. Integer nec erat sed purus congue suscipit.
+      </p>
+    </div>
   );
 };
 
-export default HomeBlog;
+export default BlogDetails;

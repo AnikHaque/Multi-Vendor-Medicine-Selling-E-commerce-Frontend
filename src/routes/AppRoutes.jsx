@@ -44,6 +44,7 @@ import AllMedicines from "../components/Shop/Shop";
 import MedicinesTable from "../components/Shop/MedicineTable";
 import ManageBannerAdvertise from "../components/Dashboard/ManageBanner/ManageBanner";
 import SellerAdvertisementSection from "../components/Dashboard/Advertise/SellerAdvertise";
+import BlogDetails from "../components/Blogs/BlogDetails";
 
 export default function AppRoutes() {
  let user = null;
@@ -68,6 +69,7 @@ const token = localStorage.getItem("token") || null;
       <Route path="/product-details" element={<ProductPage />} />
       <Route path="/browse-tasks" element={<BrowseTasks />} />
       <Route path="/category/:category" element={<CategoryDetails />} />
+      <Route path="/blog/:id" element={<BlogDetails />} />
       <Route path="/cart" element={<Cart user={user} token={token} />} />
        <Route path="/checkout" element={<Checkout user={user} token={token} />} />
         <Route path="/shop" element={<MedicinesTable user={user} token={token} />} />
