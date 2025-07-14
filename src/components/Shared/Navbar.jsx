@@ -54,11 +54,11 @@ export default function Navbar() {
       <div className="container mx-auto flex flex-wrap items-center justify-between">
         <Link to="/" className="text-xl font-bold flex items-center gap-2">
           <img
-            src="https://devtechgroup.com/wp-content/uploads/2021/06/2021-Devtech-logo-m.png"
+            src="https://demo2.wpthemego.com/themes/sw_mallon/wp-content/uploads/2021/06/logo-home2.png"
             alt="Logo"
-            className="w-10"
+            className="w-20"
           />
-          <span>FreelancerHub</span>
+        
         </Link>
 
         <button

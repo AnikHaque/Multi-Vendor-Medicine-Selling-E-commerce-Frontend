@@ -3,13 +3,13 @@ import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react"; // or use
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white py-8 px-4 mt-12">
+    <footer className="bg-[#2b97a4] text-white py-8 px-4 mt-12">
       <div className="container mx-auto grid md:grid-cols-3 gap-8 text-center md:text-left">
         {/* Branding */}
         <div>
-          <h2 className="text-2xl font-bold mb-2">DevTech</h2>
+          <h2 className="text-2xl font-bold mb-2">Mallon</h2>
           <p className="text-sm">
-            Your trusted platform for freelance services and solutions.
+            Your trusted platform for Medicine services and solutions.
           </p>
         </div>
 
